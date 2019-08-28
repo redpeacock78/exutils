@@ -5,7 +5,7 @@
 #(@)GPLv3+ is applied to this script.
 #(@)
 ########################################
-#(@)Various prime numbers are displayed.
+#(@)Displays standard input while convolving with the given NUMBER.
 #(@)Grobals:
 #(@)  None
 #(@)Arguments:
