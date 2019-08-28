@@ -83,8 +83,8 @@ ERR
 ####MAIN_PROCESSING####
 function generate_divisor(){
   {
-   yes ${@} \
-   | head -n ${@} \
+   yes "${@}" \
+   | head -n "${@}" \
    | awk '{print $1/NR}' \
    | grep -vF --line-buffered . \
    | uniq \
@@ -94,7 +94,7 @@ function generate_divisor(){
 }
 function main(){
   export -f generate_divisor
-  echo ${@} \
+  echo "${@}" \
   | xargs -n1 -I @ bash -c 'generate_divisor @'
 }
 
@@ -103,7 +103,7 @@ function option_perse(){
   	declare NUMBER="$(cat -)"
   	if [[ "${@}" == -r ]] || \
   	   [[ "${@}" == --reverse ]]; then
-  	  cat <(main ${NUMBER}) \
+  	  main "${NUMBER}" \
   	  | awk '{for(i=NF;i>0;i--) printf("%s ",$i);printf("\n");}'
   	else
   	  main "${NUMBER}" || \
