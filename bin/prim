@@ -1,0 +1,375 @@
+#!/usr/bin/env bash
+#
+#(@)prim 0.0.1
+#(@)(c) 2019 redpeacock78
+#(@)GPLv3+ is applied to this script.
+#(@)
+########################################
+#(@)Various prime numbers are displayed.
+#(@)Grobals:
+#(@)  None
+#(@)Arguments:
+#(@)  -s, --separator=[ANY_CHARACTER]
+#(@)  -f, --format=[ANY_FORMAT]
+#(@)  -w, --equal-width
+#(@)  -h, --help
+#(@)  -v, --version
+#(@)Returns:
+#(@)  None
+#(@)Depends:
+#(@)  FACTOR
+#(@)  PRINTF
+#(@)  BASH
+#(@)  ECHO
+#(@)  TAIL
+#(@)  GREP
+#(@)  SEQ
+#(@)  SED
+#(@)  AWK
+#(@)  CUT 
+########################################
+
+
+
+####ALIAS_ACTIVATION####
+shopt -s expand_aliases
+
+
+####FUNCTIONS####
+###ALIAS_SETTING###
+function alias_set(){
+    if type "gfactor" > /dev/null 2>&1; then
+      alias factor="gfactor"
+    elif type "factor" > /dev/null 2>&1; then
+      alias factor="factor"
+    else
+      echo "Error: Please install factor(coreutil)." && \
+      error
+    fi
+}
+
+
+###MESSAGES###
+##VERSION_INFO##
+function version(){
+  {
+   cat << EOS >&2
+${0##*/} 0.0.1
+Copyright (C) 2019 redpeacock78
+License GPLv3+: GNU GPL version3 or later.
+
+THIS IS FREE SOFTWARE.
+YOU ARE FREE TO CHANGE AND REDISTRIBUTE IT.
+THERE IS NO WARRANTY, TO THE EXTENT PERMITTED BY LAW.
+
+Written by redpeacock78 <https://github.com/redpeacock78>.
+EOS
+  }
+}
+##PRINT_USAGE##
+function usage(){
+  {
+   cat << EOS >&2
+Usage: ${0##*/} [OPTION]... FIRST
+   or: ${0##*/} [OPTION]... FIRST LAST
+   or: ${0##*/} [OPTION]... FIRST INCREMENT LAST
+Print prime numbers from FIRST to LAST, in steps of INCREMENT.
+
+Options:
+  -s ,--separator=[SEPARATOR]
+     Use STRING to separate numbers (default: \n)
+  -f ,--format=[FORMAT]
+     Use printf style FORMAT
+  -w, --equal-width
+     Equalize width by padding with leading zeroes
+  -h, --help
+     Display this help and exit
+  -v, --version
+     Output version information
+EOS
+   exit 0
+  }
+}
+##ERROR_MESSAGES##
+function error(){
+  {
+   cat << ERR 1>&2 
+Sorry. An error has occurred :_(
+Refer '${0##*/} -h' or '${0##*/} --help' for how to use the command.
+ERR
+   exit 1
+  }
+}
+function prime_number_err(){
+  {
+   cat << PRIME_ERR 1>&2
+${0##*/}: Could not generate a prime number.
+Prease change the range of numerical values ​​to be specified.
+PRIME_ERR
+  }
+}
+function separator_err(){
+  {
+   cat << SEPARATOR_ERR 1>&2 
+${0##*/}: Unrecognized SEPARATOR.
+Prease specify a non-numeric value for SEPARATOR.
+SEPARATOR_ERR
+  }
+}
+function format_err(){
+  {
+   cat << FORMAT_ERR 1>&2 
+${0##*/}: Unrecognized FORMAT '${FORMAT}'
+Prease printf style FORMAT.
+FORMAT_ERR
+  }
+}
+
+
+###CHECKERS###
+function format_check(){
+  {
+   grep '%.*' <<< "${FORMAT}" >/dev/null && \
+   printf "${FORMAT}" ${PRIME_NUMBERS} >/dev/null 2>&1
+  }
+}
+function filter_separator(){
+  echo "${SEPARATOR/\\n}" \
+  | sed 's/\+/\\+/g;s/\^/\\^/g;s/\./\\./g' \
+  | sed 's/\|/\\|/g;s/\*/\\*/g;s/\?/\\?/g'
+}
+
+###MAIN_PROCESSING###
+##PRIME_NUMBER##
+function generating_prime(){
+  {
+   seq ${NUMBER} \
+   | factor \
+   | awk 'NF==2{print $2}'
+  } 2>/dev/null
+}
+
+
+##SELECT_SEPARATOR##
+function separator_option(){
+  {
+   {
+    if [[ "${1}" == -s ]]; then
+      shift && declare SEPARATOR="${1/[0-9]*}"
+      if [[ "${2}" == -f ]]; then
+        shift && declare FORMAT_OPT="${1}"
+        shift && declare FORMAT="${1}"
+      elif [[ "${2}" =~ --format= ]]; then
+        shift && declare FORMAT_OPT="${1}"
+        declare FORMAT="${1#*=}"
+      fi
+    elif [[ "${1}" =~ = ]]; then
+      declare SEPARATOR="$(sed 's/[0-9]*//' <<< "${1#*=}")"
+      if [[ "${2}" == -f ]]; then
+        shift && declare FORMAT_OPT="${1}"
+        shift && declare FORMAT="${1}"
+      elif [[ "${2}" =~ --format= ]]; then
+        shift && declare FORMAT_OPT="${1}"
+        declare FORMAT="${1#*=}"
+      fi
+    fi
+   }
+   shift && declare NUMBER="${@}"
+   declare PRIME_NUMBERS="$(generating_prime)"
+   {
+    if [[ ! -z "${PRIME_NUMBERS}" ]]; then
+      separator_option_analysis
+    else
+      prime_number_err && \
+      error
+    fi
+   }
+  }
+}
+function separator_option_analysis(){
+  {
+   if [[ ! -z "${SEPARATOR}" ]]; then
+     if [[ ! -z "${FORMAT_OPT}" ]]; then
+       if [[ ! -z "${FORMAT}" ]]; then
+         if ! format_check; then
+           format_err && \
+           error
+         else
+           declare FILTED_SEPARATOR="$(filter_separator)"
+           printf "${FORMAT}${SEPARATOR}" ${PRIME_NUMBERS} \
+           | awk 'sub(/'"${FILTED_SEPARATOR}"'$/,"",$0)' && \
+           exit 0
+         fi
+       else
+         format_err && \
+         error
+       fi
+     fi
+     awk -v S="${SEPARATOR}" 'gsub(" ",S,$0)' <<< ${PRIME_NUMBERS} && \
+     exit 0
+   else
+     separator_err && \
+     error
+   fi
+  }
+}
+
+##SELECT_FORMAT##
+function format_option(){
+  {
+   {
+    if [[ "${1}" == -f ]]; then
+      shift && declare FORMAT="${1}"
+      if [[ "${2}" == -s ]]; then
+        shift && shift && declare SEPARATOR="${1/[0-9]*}"
+      elif [[ "${2}" =~ --separator= ]]; then
+        shift && declare SEPARATOR="$(sed 's/[0-9]*//' <<< "${1#*=}")"
+      fi
+    elif [[ "${1}" =~ = ]]; then
+      declare FORMAT="${1#*=}"
+      if [[ "${2}" == -s ]]; then
+        shift && shift && declare SEPARATOR="${1/[0-9]*}"
+      elif [[ "${2}" =~ --separator= ]]; then
+        shift && declare SEPARATOR="$(sed 's/[0-9]*//' <<< "${1#*=}")"
+      fi
+    fi
+   }
+   shift && declare NUMBER="${@}"
+   declare PRIME_NUMBERS="$(generating_prime)"
+   {
+    if [[ ! -z "${PRIME_NUMBERS}" ]]; then
+      format_option_analysis
+    else
+      prime_number_err && \
+      error
+    fi
+   }
+  }
+}
+function format_option_analysis(){
+  {
+   if [[ ! -z "${FORMAT}" ]]; then
+     if ! format_check; then
+       format_err && \
+       error
+     else
+       if [[ ! -z "${SEPARATOR}" ]]; then
+        declare FILTED_SEPARATOR="$(filter_separator)"
+         printf "${FORMAT}${SEPARATOR}" ${PRIME_NUMBERS} \
+         | awk 'sub(/'"${FILTED_SEPARATOR}"'$/,"",$0)' && \
+         exit 0
+       else
+         if [[ ! -z "${FORMAT}" ]]; then
+           if [[ ! -z "${SEPARATOR}" ]]; then
+             printf "${FORMAT}\n" ${PRIME_NUMBERS} &&
+             exit 0
+           else
+             separator_err && \
+             error
+           fi
+         else
+           separator_err && \
+           error
+         fi
+       fi
+     fi
+   else
+     format_err && \
+     error
+   fi
+  }
+}
+
+##EQUAL_WIDTH##
+function equal_width_option(){
+  {
+   if [[ "${1}" == -w ]]; then
+     if [[ "${2}" == -s ]]; then
+       shift && declare SEPARATOR_OPT="${1}"
+       shift && declare SEPARATOR="${1/[0-9]*}"
+     elif [[ "${2}" =~ --separator= ]]; then
+       shift && declare SEPARATOR_OPT="${1}"
+       declare SEPARATOR="$(sed 's/[0-9]*//' <<< "${1#*=}")"
+     fi
+   elif [[ "${1}" == --equal-width ]]; then
+     if [[ "${2}" == -s ]]; then
+       shift && declare SEPARATOR_OPT="${1}"
+       shift && declare SEPARATOR="${1/[0-9]*}"
+     elif [[ "${2}" =~ --separator= ]]; then
+       shift && declare SEPARATOR_OPT="${1}"
+       declare SEPARATOR="$(sed 's/[0-9]*//' <<< "${1#*=}")"
+     fi
+   fi
+  }
+  shift && declare NUMBER="${@}"
+  declare PRIME_NUMBERS="$(generating_prime)"
+  {
+   if [[ ! -z "${PRIME_NUMBERS}" ]]; then
+     equal_width_option_analysis
+   else
+     prime_number_err && \
+     error
+   fi
+  }
+}
+function equal_width_option_analysis(){
+  {
+   declare WIDTH="$(tail -n1 <<< "${PRIME_NUMBERS}")"
+   if [[ ! -z "${SEPARATOR_OPT}" ]]; then
+    if [[ ! -z "${SEPARATOR}" ]]; then
+      declare FILTED_SEPARATOR="$(filter_separator)"
+      printf "%0${#WIDTH}d${SEPARATOR}" ${PRIME_NUMBERS} \
+      | awk 'sub(/'"${FILTED_SEPARATOR}"'$/,"",$0)' && \
+      exit 0
+    else
+      separator_err && \
+      error
+    fi
+  else
+    printf "%0${#WIDTH}d\n" ${PRIME_NUMBERS} && \
+    exit 0
+  fi
+ }
+}
+
+##NONE_OPTION##
+function none_option(){
+  declare NUMBER="${@}"
+  {
+   declare PRIME_NUMBERS="$(generating_prime)"
+   if [[ ! -z "${PRIME_NUMBERS}" ]]; then
+     echo "${PRIME_NUMBERS}" && \
+     exit 0
+   else
+     prime_number_err && \
+     error
+   fi
+  }
+}
+
+
+
+####MAIN####
+function main(){
+  if [[ "${1}" =~ ^[0-9]*$ ]]; then
+    none_option "${@}"
+  elif [[ "${1}" =~ -s|--separator ]]; then
+    separator_option "${@}"
+  elif [[ "${1}" =~ -f|--format ]]; then
+    format_option "${@}"
+  elif [[ "${1}" =~ -w|--equal-width ]]; then
+    equal_width_option "${@}"
+  elif [[ "${@}" == -h ]] || \
+       [[ "${@}" == --help ]]; then
+    usage
+  elif [[ "${@}" == -v ]] || \
+       [[ "${@}" == --version ]]; then
+    version
+  else
+    error
+  fi
+}
+
+{
+ alias_set && main "${@}"
+}

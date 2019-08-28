@@ -1,0 +1,130 @@
+#!/usr/bin/env bash
+#
+#(@)camb 0.0.1
+#(@)(c) 2019 redpeacock78
+#(@)GPLv3+ is applied to this script.
+#(@)
+########################################
+#(@)Various prime numbers are displayed.
+#(@)Grobals:
+#(@)  None
+#(@)Arguments:
+#(@)  -r, --right
+#(@)  -h, --help
+#(@)  -v, --version
+#(@)Returns:
+#(@)  None
+#(@)Depends:
+#(@)  BASH
+#(@)  AWK
+########################################
+
+
+
+####MESSAGES####
+###VERSION###
+function version(){
+  {
+   cat << EOS >&2
+${0##*/} 0.0.1
+Copyright (C) 2019 redpeacock78
+License GPLv3+: GNU GPL version3 or later.
+
+THIS IS FREE SOFTWARE.
+YOU ARE FREE TO CHANGE AND REDISTRIBUTE IT.
+THERE IS NO WARRANTY, TO THE EXTENT PERMITTED BY LAW.
+
+Written by redpeacock78 <https://github.com/redpeacock78>.
+EOS
+   exit 0
+  }
+}
+###SHOW_USAGE###
+function usage(){
+  {
+   cat << EOS >&2
+Usage: ${0##*/} [OPTION] [NUMBER]
+Displays standard input while convolving with the given NUMBER.
+
+Option:
+  -r, --right      Display with right folding
+  -h, --help       Show usage
+  -v, --version    Show version and info
+
+TL;DR
+  $ seq -w 10 | ${0##*/} 5
+  01 02 03 04 05
+  02 03 04 05 06
+  03 04 05 06 07
+  04 05 06 07 08
+  05 06 07 08 09
+  06 07 08 09 10
+EOS
+   exit 0
+  }
+}
+###ERROR_MESSAGE###
+function error(){
+  {
+   cat << ERR 1>&2
+${0##*/}: Sorry. An error has occurred :_(
+Refer '${0##*/} -h' or '${0##*/} --help' for how to use the command.
+ERR
+   exit 1
+  }
+}
+
+
+####MAIN_PROCESSING####
+function shift_args(){
+  function main(){
+   declare DIFF="$(echo $((${NUMBER} - 1)))"
+   declare MAX="$(echo $((${#} - ${DIFF/-1/0})))"
+   declare RECURRING_TIMES="$(eval echo {1..${MAX}})"
+   for i in ${RECURRING_TIMES}; do
+   	 builtin echo "${@:0:(${NUMBER}+1)}" && \
+   	 shift
+   done
+  }
+  {
+   cat <(main ${@}) && \
+   exit 0
+  } || \
+  error
+}
+
+function pass_stdin(){
+  if [[ -p /dev/stdin ]]; then
+  	declare STDIN="$(cat -)"
+  	if [[ "${1}" == -r ]] || \
+  	   [[ "${1}" == --right ]]; then
+  	  if [[ "${2}" =~ ^[0-9]*$ ]]; then
+        declare NUMBER="${2}"
+        declare R_STDIN="$(awk '{for(i=NF;i>0;i--) printf("%s ",$i);printf("\n");}' <<< ${STDIN})"
+  	    shift_args ${R_STDIN}
+  	  else
+  	    declare NUMBER="${@}"
+        declare R_STDIN="$(awk '{for(i=NF;i>0;i--) printf("%s ",$i);printf("\n");}' <<< ${STDIN})"
+  	    shift_args ${R_STDIN}
+  	  fi
+  	elif [[ "${@}" =~ ^[0-9]*$ ]]; then
+        declare NUMBER="${@}"
+  	    shift_args ${STDIN}
+  	elif [[ -z "${@}" ]]; then
+  	    declare NUMBER="${@}"
+  	    shift_args ${STDIN}
+  	else
+  	  error
+  	fi
+  elif [[ "${@}" == -h ]] || \
+       [[ "${1}" == --help ]]; then
+      usage
+  elif [[ "${@}" == -v ]] || \
+       [[ "${@}" == --version ]]; then
+      version
+  else
+  	error
+  fi
+}
+
+pass_stdin "${@}"
