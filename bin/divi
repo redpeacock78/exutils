@@ -139,10 +139,11 @@ function option_perse(){
   	if [[ "${@}" == -r ]] || \
   	   [[ "${@}" == --reverse ]]; then
   	  main "${NUMBER}" \
-  	  | awk '{for(i=NF;i>0;i--) printf("%s ",$i);printf("\n");}'
+  	  | awk '{for(i=NF;i>0;i--) printf("%s ",$i);printf("\n");}' \
+      | awk '$0 != ""{print $0}'
   	else
-  	  main "${NUMBER}" || \
-  	  error
+  	  main "${NUMBER}" \
+      | awk '$0 != ""{print $0}'
   	fi
   elif [[ "${@}" == -h ]] || \
        [[ "${1}" == --help ]]; then
@@ -157,10 +158,12 @@ function option_perse(){
   	   [[ "${1}" == --reverse ]]; then
   	  declare NUMBER="${@}"
       main "${NUMBER}" \
-      | awk '{for(i=NF;i>0;i--) printf("%s ",$i);printf("\n");}'
+      | awk '{for(i=NF;i>0;i--) printf("%s ",$i);printf("\n");}' \
+      | awk '$0 != ""{print $0}'
     elif [[ "${1}" =~ ^[0-9]*$ ]]; then
       declare NUMBER="${@}"
-      main "${NUMBER}"
+      main "${NUMBER}" \
+      | awk '$0 != ""{print $0}'
     else
       error
     fi
