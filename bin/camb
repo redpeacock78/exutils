@@ -96,10 +96,11 @@ function shift_args(){
 function pass_stdin(){
   if [[ -p /dev/stdin ]]; then
   	declare STDIN="$(cat -)"
+    declare ARRAY_STDIN=($(echo ${STDIN}))
   	if [[ "${1}" == -r ]] || \
   	   [[ "${1}" == --right ]]; then
   	  if [[ "${2}" =~ ^[0-9]*$ ]]; then
-        if [[ "${#STDIN}" -ge "${2}" ]]; then
+        if [[ ${#ARRAY_STDIN[@]} -ge "${2}" ]]; then
           declare NUMBER="${2}"
           declare R_STDIN="$(awk '{for(i=NF;i>0;i--) printf("%s ",$i);printf("\n");}' <<< ${STDIN})"
   	      shift_args ${R_STDIN}
@@ -113,7 +114,7 @@ function pass_stdin(){
   	    shift_args ${R_STDIN}
   	  fi
   	elif [[ "${@}" =~ ^[0-9]*$ ]]; then
-      if [[ "${#STDIN}" -ge "${@}" ]]; then
+      if [[ ${#ARRAY_STDIN[@]} -ge "${@}" ]]; then
         declare NUMBER="${@}"
   	    shift_args ${STDIN}
       else
