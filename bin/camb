@@ -99,17 +99,26 @@ function pass_stdin(){
   	if [[ "${1}" == -r ]] || \
   	   [[ "${1}" == --right ]]; then
   	  if [[ "${2}" =~ ^[0-9]*$ ]]; then
-        declare NUMBER="${2}"
-        declare R_STDIN="$(awk '{for(i=NF;i>0;i--) printf("%s ",$i);printf("\n");}' <<< ${STDIN})"
-  	    shift_args ${R_STDIN}
+        if [[ "${#STDIN}" -ge "${2}" ]]; then
+          declare NUMBER="${2}"
+          declare R_STDIN="$(awk '{for(i=NF;i>0;i--) printf("%s ",$i);printf("\n");}' <<< ${STDIN})"
+  	      shift_args ${R_STDIN}
+        else
+          declare R_STDIN="$(awk '{for(i=NF;i>0;i--) printf("%s ",$i);printf("\n");}' <<< ${STDIN})"
+          echo ${R_STDIN}
+        fi
   	  else
   	    declare NUMBER="${@}"
         declare R_STDIN="$(awk '{for(i=NF;i>0;i--) printf("%s ",$i);printf("\n");}' <<< ${STDIN})"
   	    shift_args ${R_STDIN}
   	  fi
   	elif [[ "${@}" =~ ^[0-9]*$ ]]; then
+      if [[ "${#STDIN}" -ge "${@}" ]]; then
         declare NUMBER="${@}"
   	    shift_args ${STDIN}
+      else
+        echo ${STDIN}
+      fi
   	elif [[ -z "${@}" ]]; then
   	    declare NUMBER="${@}"
   	    shift_args ${STDIN}
