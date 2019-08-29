@@ -15,8 +15,8 @@
 #(@)Returns:
 #(@)  None
 #(@)Depends:
-#(@)  FGREP
-#(@)  XARGS
+#(@)  GNU FGREP
+#(@)  GNU XARGS
 #(@)  BASH
 #(@)  HEAD
 #(@)  SORT
@@ -26,8 +26,40 @@
 ########################################
 
 
+####ALIAS_ACTIVATION####
+shopt -s expand_aliases
+
 
 ####MESSAGES####
+###ALIAS_SETTING###
+function alias_set(){
+  {
+   if type "ggrep" > /dev/null 2>&1; then
+     alias grep="ggrep"
+   else
+     if [[ "$(grep --version | head -n1 > /dev/null 2>&1)" =~ "GNU" ]]; then
+       alias grep="grep"
+      else
+       echo "Error: Please install GUN AWK(gawk)." && \
+       exit 2
+     fi
+   fi
+  }
+  {
+   if type "gxargs" > /dev/null 2>&1; then
+     alias xargs="gxargs"
+   else
+     if [[ "$(xargs --version | head -n1 > /dev/null 2>&1)" =~ "GNU" ]]; then
+       alias xargs="xargs"
+     else
+       echo "Error: Please install GUN AWK(gawk)." && \
+       exit 2
+     fi
+   fi
+  }
+}
+
+
 ###VERSION###
 function version(){
   {
@@ -135,4 +167,7 @@ function option_perse(){
   fi
 }
 
-option_perse "${@}"
+{
+ alias_set && \
+ option_perse "${@}"
+}
