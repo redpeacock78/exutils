@@ -128,7 +128,8 @@ function generate_divisor(){
 function main(){
   export -f generate_divisor
   builtin echo "${@}" \
-  | xargs -n1 -I @ bash -c 'builtin echo $(generate_divisor @)'
+  | xargs -n1 -I @ bash -c 'builtin echo $(generate_divisor @)' \
+  | awk '$0 != ""{print $0}'
 }
 
 function option_perse(){
@@ -140,10 +141,9 @@ function option_perse(){
   	   [[ "${@}" == --reverse ]]; then
   	  main "${NUMBER}" \
   	  | awk '{for(i=NF;i>0;i--) printf("%s ",$i);printf("\n");}' \
-      | awk '$0 != ""{print $0}'
+      | awk 'gsub(/ $/,"",$0)'
   	else
-  	  main "${NUMBER}" \
-      | awk '$0 != ""{print $0}'
+  	  main "${NUMBER}"
   	fi
   elif [[ "${@}" == -h ]] || \
        [[ "${1}" == --help ]]; then
@@ -159,11 +159,10 @@ function option_perse(){
   	  declare NUMBER="${@}"
       main "${NUMBER}" \
       | awk '{for(i=NF;i>0;i--) printf("%s ",$i);printf("\n");}' \
-      | awk '$0 != ""{print $0}'
+      | awk 'gsub(/ $/,"",$0)'
     elif [[ "${1}" =~ ^[0-9]*$ ]]; then
       declare NUMBER="${@}"
-      main "${NUMBER}" \
-      | awk '$0 != ""{print $0}'
+      main "${NUMBER}"
     else
       error
     fi
