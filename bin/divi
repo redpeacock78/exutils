@@ -34,13 +34,13 @@ shopt -s expand_aliases
 ###ALIAS_SETTING###
 function alias_set(){
   {
-   if type "ggrep" > /dev/null 2>&1; then
-     alias grep="ggrep"
+   if type "gfgrep" > /dev/null 2>&1; then
+     alias fgrep="gfgrep"
    else
-     if [[ "$(grep --version | head -n1 > /dev/null 2>&1)" =~ "GNU" ]]; then
-       alias grep="grep"
+     if [[ "$(fgrep --version | head -n1 > /dev/null 2>&1)" =~ "GNU" ]]; then
+       alias fgrep="fgrep"
       else
-       echo "Error: Please install GUN AWK(gawk)." && \
+       echo "Error: Please install GNU GREP." && \
        exit 2
      fi
    fi
@@ -52,7 +52,7 @@ function alias_set(){
      if [[ "$(xargs --version | head -n1 > /dev/null 2>&1)" =~ "GNU" ]]; then
        alias xargs="xargs"
      else
-       echo "Error: Please install GUN AWK(gawk)." && \
+       echo "Error: Please install GNU XARGS." && \
        exit 2
      fi
    fi
