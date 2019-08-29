@@ -15,14 +15,17 @@
 #(@)Returns:
 #(@)  None
 #(@)Depends:
+#(@)  FGREP
+#(@)  XARGS
 #(@)  BASH
 #(@)  HEAD
-#(@)  GREP
-#(@)  UNIQ
+#(@)  SORT
 #(@)  YES
 #(@)  AWK
 #(@)  TR
 ########################################
+
+
 
 ####MESSAGES####
 ###VERSION###
@@ -56,14 +59,14 @@ Option:
 
 TL;DR
   $ ${0##*/} 100
-  100 50 25 20 10 5 4 2 1
+  1 2 4 5 10 20 25 50 100
 
   $ seq 5 | ${0##*/} -r
-  1
-  1 2
-  1 3
-  1 2 4
-  1 5
+  1 
+  2 1 
+  3 1 
+  4 2 1 
+  5 1
 EOS
    exit 0
   }
@@ -86,19 +89,19 @@ function generate_divisor(){
    yes "${@}" \
    | head -n "${@}" \
    | awk '{print $1/NR}' \
-   | grep -vF --line-buffered . \
-   | uniq \
-   | tr \\n ' ' \
-   | awk 'sub(/ $/,"",$0)'
+   | sort -nu \
+   | fgrep -v .
   } 2>/dev/null
 }
 function main(){
   export -f generate_divisor
-  echo "${@}" \
-  | xargs -n1 -I @ bash -c 'generate_divisor @'
+  builtin echo "${@}" \
+  | xargs -n1 -I @ bash -c 'builtin echo $(generate_divisor @)'
 }
 
 function option_perse(){
+  export LC_ALL=C
+  export LANG=C
   if [[ -p /dev/stdin ]]; then
   	declare NUMBER="$(cat -)"
   	if [[ "${@}" == -r ]] || \
