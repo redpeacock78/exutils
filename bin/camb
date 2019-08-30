@@ -99,7 +99,7 @@ function pass_stdin(){
     declare ARRAY_STDIN=($(echo ${STDIN}))
     if [[ "${1}" == -r ]] || \
        [[ "${1}" == --right ]]; then
-      declare R_STDIN="$(awk '{for(i=NF;i>0;i--) printf("%s ",$i);printf("\n");}' <<< ${STDIN})"
+      declare R_STDIN="$(awk '{for(i=NF;i>0;i--)print $i}' <<< ${STDIN})"
       if [[ "${2}" =~ ^[0-9]*$ ]]; then
         if [[ ${#ARRAY_STDIN[@]} -gt "${2}" ]]; then
           if [[ "${2:-1}" -le 0 ]]; then
