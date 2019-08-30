@@ -131,20 +131,27 @@ function main(){
   | xargs -n1 -I @ bash -c 'builtin echo $(generate_divisor @)' \
   | awk '$0 != ""{print $0}'
 }
+function re_main(){
+  function reverse(){
+    awk '{for(i=NF;i>0;i--)printf("%s ",$i)}' \
+    | awk 'sub(/ $/,"",$0)'
+  }
+  export -f reverse
+  main "${@}" \
+  | xargs -I @ bash -c 'echo @ | reverse'
+}
 
 function option_perse(){
   export LC_ALL=C
   export LANG=C
   if [[ -p /dev/stdin ]]; then
-  	declare NUMBER="$(cat -)"
-  	if [[ "${@}" == -r ]] || \
-  	   [[ "${@}" == --reverse ]]; then
-  	  main "${NUMBER}" \
-  	  | awk '{for(i=NF;i>0;i--) printf("%s ",$i);printf("\n");}' \
-      | awk 'gsub(/ $/,"",$0)'
-  	else
-  	  main "${NUMBER}"
-  	fi
+    declare NUMBER="$(cat -)"
+    if [[ "${@}" == -r ]] || \
+       [[ "${@}" == --reverse ]]; then
+      re_main "${NUMBER}"
+    else
+      main "${NUMBER}"
+    fi
   elif [[ "${@}" == -h ]] || \
        [[ "${1}" == --help ]]; then
     usage
@@ -152,14 +159,12 @@ function option_perse(){
        [[ "${@}" == --version ]]; then
     version
   elif [[ -z "${@}" ]]; then
-  	error
+    error
   elif [[ "${@}" =~ [0-9]*$ ]]; then
-  	if [[ "${1}" == -r ]] || \
-  	   [[ "${1}" == --reverse ]]; then
-  	  declare NUMBER="${@}"
-      main "${NUMBER}" \
-      | awk '{for(i=NF;i>0;i--) printf("%s ",$i);printf("\n");}' \
-      | awk 'gsub(/ $/,"",$0)'
+    if [[ "${1}" == -r ]] || \
+       [[ "${1}" == --reverse ]]; then
+      declare NUMBER="${@}"
+      re_main "${NUMBER}"
     elif [[ "${1}" =~ ^[0-9]*$ ]]; then
       declare NUMBER="${@}"
       main "${NUMBER}"
