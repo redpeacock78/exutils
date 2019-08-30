@@ -17,6 +17,7 @@
 #(@)Depends:
 #(@)  BASH
 #(@)  AWK
+#(@)  CAT
 ########################################
 
 
@@ -78,11 +79,10 @@ ERR
 ####MAIN_PROCESSING####
 function shift_args(){
   function main(){
-   declare DIFF="${NUMBER:-0}"
-   declare MAX="$(echo $((${#} - ${NUMBER/1/0})))"
+   declare MAX="$(echo $(($((${#} - ${NUMBER})) + 1)))"
    declare RECURRING_TIMES="$(eval echo {1..${MAX}})"
    for i in ${RECURRING_TIMES}; do
-   	 builtin echo "${@:1:(${NUMBER/1/0}+1)}" && \
+   	 builtin echo "${@:1:${NUMBER}}" && \
    	 shift
    done
   }
@@ -102,8 +102,12 @@ function pass_stdin(){
       declare R_STDIN="$(awk '{for(i=NF;i>0;i--) printf("%s ",$i);printf("\n");}' <<< ${STDIN})"
       if [[ "${2}" =~ ^[0-9]*$ ]]; then
         if [[ ${#ARRAY_STDIN[@]} -gt "${2}" ]]; then
-          declare NUMBER="${2}"
-          shift_args ${R_STDIN}
+          if [[ "${2}" -le 0 ]]; then
+            error
+          else
+            declare NUMBER="${2:-1}"
+            shift_args ${R_STDIN}
+          fi
         else
           echo ${R_STDIN}
         fi
@@ -113,14 +117,15 @@ function pass_stdin(){
       fi
     elif [[ "${@}" =~ ^[0-9]*$ ]]; then
       if [[ ${#ARRAY_STDIN[@]} -gt "${@}" ]]; then
-        declare NUMBER="${@}"
-        shift_args ${STDIN}
+        if [[ "${@}" -le 0 ]]; then
+          error
+        else
+          declare NUMBER="${@:-1}"
+          shift_args ${STDIN}
+        fi
       else
         echo ${STDIN}
       fi
-    elif [[ -z "${@}" ]]; then
-      declare NUMBER="${@}"
-      shift_args ${STDIN}
     else
       error
     fi
