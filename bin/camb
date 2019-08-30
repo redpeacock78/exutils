@@ -82,7 +82,7 @@ function shift_args(){
    declare MAX="$(echo $((${#} - ${DIFF/-1/0})))"
    declare RECURRING_TIMES="$(eval echo {1..${MAX}})"
    for i in ${RECURRING_TIMES}; do
-   	 builtin echo "${@:0:(${NUMBER}+1)}" && \
+   	 builtin echo "${@:1:(${NUMBER}+1)}" && \
    	 shift
    done
   }
