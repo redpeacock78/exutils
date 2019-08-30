@@ -95,7 +95,7 @@ function shift_args(){
 
 function pass_stdin(){
   if [[ -p /dev/stdin ]]; then
-    declare STDIN="$(cat -)"
+    declare STDIN="$(echo $(cat -))"
     declare ARRAY_STDIN=($(echo ${STDIN}))
     if [[ "${1}" == -r ]] || \
        [[ "${1}" == --right ]]; then
