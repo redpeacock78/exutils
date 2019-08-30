@@ -153,7 +153,7 @@ function option_perse(){
       main "${NUMBER}"
     fi
   elif [[ "${@}" == -h ]] || \
-       [[ "${1}" == --help ]]; then
+       [[ "${@}" == --help ]]; then
     usage
   elif [[ "${@}" == -v ]] || \
        [[ "${@}" == --version ]]; then
@@ -163,7 +163,7 @@ function option_perse(){
   elif [[ "${@}" =~ [0-9]*$ ]]; then
     if [[ "${1}" == -r ]] || \
        [[ "${1}" == --reverse ]]; then
-      declare NUMBER="${@}"
+      declare NUMBER="${2}"
       re_main "${NUMBER}"
     elif [[ "${1}" =~ ^[0-9]*$ ]]; then
       declare NUMBER="${@}"
