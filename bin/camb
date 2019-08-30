@@ -95,45 +95,43 @@ function shift_args(){
 
 function pass_stdin(){
   if [[ -p /dev/stdin ]]; then
-  	declare STDIN="$(cat -)"
+    declare STDIN="$(cat -)"
     declare ARRAY_STDIN=($(echo ${STDIN}))
-  	if [[ "${1}" == -r ]] || \
-  	   [[ "${1}" == --right ]]; then
-  	  if [[ "${2}" =~ ^[0-9]*$ ]]; then
+    if [[ "${1}" == -r ]] || \
+       [[ "${1}" == --right ]]; then
+      declare R_STDIN="$(awk '{for(i=NF;i>0;i--) printf("%s ",$i);printf("\n");}' <<< ${STDIN})"
+      if [[ "${2}" =~ ^[0-9]*$ ]]; then
         if [[ ${#ARRAY_STDIN[@]} -ge "${2}" ]]; then
           declare NUMBER="${2}"
-          declare R_STDIN="$(awk '{for(i=NF;i>0;i--) printf("%s ",$i);printf("\n");}' <<< ${STDIN})"
-  	      shift_args ${R_STDIN}
+          shift_args ${R_STDIN}
         else
-          declare R_STDIN="$(awk '{for(i=NF;i>0;i--) printf("%s ",$i);printf("\n");}' <<< ${STDIN})"
           echo ${R_STDIN}
         fi
-  	  else
-  	    declare NUMBER="${@}"
-        declare R_STDIN="$(awk '{for(i=NF;i>0;i--) printf("%s ",$i);printf("\n");}' <<< ${STDIN})"
-  	    shift_args ${R_STDIN}
-  	  fi
-  	elif [[ "${@}" =~ ^[0-9]*$ ]]; then
+      else
+        declare NUMBER="${@}"
+        shift_args ${R_STDIN}
+      fi
+    elif [[ "${@}" =~ ^[0-9]*$ ]]; then
       if [[ ${#ARRAY_STDIN[@]} -ge "${@}" ]]; then
         declare NUMBER="${@}"
-  	    shift_args ${STDIN}
+        shift_args ${STDIN}
       else
         echo ${STDIN}
       fi
-  	elif [[ -z "${@}" ]]; then
-  	    declare NUMBER="${@}"
-  	    shift_args ${STDIN}
-  	else
-  	  error
-  	fi
+    elif [[ -z "${@}" ]]; then
+      declare NUMBER="${@}"
+      shift_args ${STDIN}
+    else
+      error
+    fi
   elif [[ "${@}" == -h ]] || \
        [[ "${1}" == --help ]]; then
-      usage
+    usage
   elif [[ "${@}" == -v ]] || \
        [[ "${@}" == --version ]]; then
-      version
+    version
   else
-  	error
+    error
   fi
 }
 
