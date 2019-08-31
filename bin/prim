@@ -1,32 +1,32 @@
 #!/usr/bin/env bash
 #
-#(@)prim 0.0.1
-#(@)(c) 2019 redpeacock78
-#(@)GPLv3+ is applied to this script.
-#(@)
+# @(#)prim 0.0.1
+# @(#)(c) 2019 redpeacock78
+# @(#)GPLv3+ is applied to this script.
+# @(#)
 ########################################
-#(@)Various prime numbers are displayed.
-#(@)Grobals:
-#(@)  None
-#(@)Arguments:
-#(@)  -s, --separator=[ANY_CHARACTER]
-#(@)  -f, --format=[ANY_FORMAT]
-#(@)  -w, --equal-width
-#(@)  -h, --help
-#(@)  -v, --version
-#(@)Returns:
-#(@)  None
-#(@)Depends:
-#(@)  FACTOR
-#(@)  PRINTF
-#(@)  BASH
-#(@)  ECHO
-#(@)  TAIL
-#(@)  GREP
-#(@)  SEQ
-#(@)  SED
-#(@)  AWK
-#(@)  CUT 
+# @(#)Various prime numbers are displayed.
+# @(#)Grobals:
+# @(#)  None
+# @(#)Arguments:
+# @(#)  -s, --separator=[ANY_CHARACTER]
+# @(#)  -f, --format=[ANY_FORMAT]
+# @(#)  -w, --equal-width
+# @(#)  -h, --help
+# @(#)  -v, --version
+# @(#)Returns:
+# @(#)  None
+# @(#)Depends:
+# @(#)  FACTOR
+# @(#)  PRINTF
+# @(#)  BASH
+# @(#)  ECHO
+# @(#)  TAIL
+# @(#)  GREP
+# @(#)  SEQ
+# @(#)  SED
+# @(#)  AWK
+# @(#)  CUT 
 ########################################
 
 

@@ -1,27 +1,27 @@
 #!/usr/bin/env bash
 #
-#(@)divi 0.0.1
-#(@)(c) 2019 redpeacock78
-#(@)GPLv3+ is applied to this script.
-#(@)
+# @(#)divi 0.0.1
+# @(#)(c) 2019 redpeacock78
+# @(#)GPLv3+ is applied to this script.
+# @(#)
 ########################################
-#(@)Display divisor of given NUMBER.
-#(@)Grobals:
-#(@)  None
-#(@)Arguments:
-#(@)  -r, --reverse
-#(@)  -h, --help
-#(@)  -v, --version
-#(@)Returns:
-#(@)  None
-#(@)Depends:
-#(@)  GNU FGREP
-#(@)  GNU XARGS
-#(@)  BASH
-#(@)  HEAD
-#(@)  SORT
-#(@)  YES
-#(@)  AWK
+# @(#)Display divisor of given NUMBER.
+# @(#)Grobals:
+# @(#)  None
+# @(#)Arguments:
+# @(#)  -r, --reverse
+# @(#)  -h, --help
+# @(#)  -v, --version
+# @(#)Returns:
+# @(#)  None
+# @(#)Depends:
+# @(#)  GNU FGREP
+# @(#)  GNU XARGS
+# @(#)  BASH
+# @(#)  HEAD
+# @(#)  SORT
+# @(#)  YES
+# @(#)  AWK
 ########################################
 
 

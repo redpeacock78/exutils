@@ -1,23 +1,23 @@
 #!/usr/bin/env bash
 #
-#(@)camb 0.0.1
-#(@)(c) 2019 redpeacock78
-#(@)GPLv3+ is applied to this script.
-#(@)
+# @(#)camb 0.0.1
+# @(#)(c) 2019 redpeacock78
+# @(#)GPLv3+ is applied to this script.
+# @(#)
 ########################################
-#(@)Displays standard input while convolving with the given NUMBER.
-#(@)Grobals:
-#(@)  None
-#(@)Arguments:
-#(@)  -r, --right
-#(@)  -h, --help
-#(@)  -v, --version
-#(@)Returns:
-#(@)  None
-#(@)Depends:
-#(@)  BASH
-#(@)  AWK
-#(@)  CAT
+# @(#)Displays standard input while convolving with the given NUMBER.
+# @(#)Grobals:
+# @(#)  None
+# @(#)Arguments:
+# @(#)  -r, --right
+# @(#)  -h, --help
+# @(#)  -v, --version
+# @(#)Returns:
+# @(#)  None
+# @(#)Depends:
+# @(#)  BASH
+# @(#)  AWK
+# @(#)  CAT
 ########################################
 
 
