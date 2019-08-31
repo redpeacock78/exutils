@@ -38,7 +38,7 @@ function alias_set(){
    if type "gfgrep" > /dev/null 2>&1; then
      alias fgrep="gfgrep"
    else
-     if [[ "$(fgrep --version | tail -n2 > /dev/null 2>&1)" =~ "GNU" ]]; then
+     if [[ "$(fgrep --version | tail -n2)" =~ "GNU" ]] > /dev/null 2>&1; then
        alias fgrep="fgrep"
       else
        echo "Error: Please install GNU GREP." && \
@@ -50,7 +50,7 @@ function alias_set(){
    if type "gxargs" > /dev/null 2>&1; then
      alias xargs="gxargs"
    else
-     if [[ "$(xargs --version | tail -n1 > /dev/null 2>&1)" =~ "gnu" ]]; then
+     if [[ "$(xargs --version | tail -n1)" =~ "gnu" ]] > /dev/null 2>&1; then
        alias xargs="xargs"
      else
        echo "Error: Please install GNU XARGS." && \
