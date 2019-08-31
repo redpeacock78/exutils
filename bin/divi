@@ -126,15 +126,19 @@ function generate_divisor(){
   } 2>/dev/null
 }
 function main(){
-  export -f generate_divisor
-  builtin echo "${@}" \
-  | xargs -n1 -I @ bash -c 'builtin echo $(generate_divisor @)'
+  {
+   export -f generate_divisor
+   builtin echo "${@}" \
+   | xargs -n1 -I @ bash -c 'builtin echo $(generate_divisor @)'
+  }
 }
 function re_main(){
-  while read LINE; do
-      awk '{for(i=NF;i>0;i--)printf("%s ",$i)}' <<< "${LINE}" \
-      | awk 'sub(/ $/,"",$0)'
-  done < <(main "${@}")
+  {
+   while read LINE; do
+     awk '{for(i=NF;i>0;i--)printf("%s ",$i)}' <<< "${LINE}" \
+     | awk 'sub(/ $/,"",$0)'
+   done < <(main "${@}")
+  }
 }
 
 function option_perse(){
