@@ -120,25 +120,21 @@ function generate_divisor(){
   {
    yes "${@}" \
    | head -n "${@}" \
-   | awk '{print $1/NR}' \
-   | sort -nu \
-   | fgrep -v .
+   | LANG=C awk '{print $1/NR}' \
+   | LANG=C sort -nu \
+   | LANG=C fgrep -v .
   } 2>/dev/null
 }
 function main(){
   export -f generate_divisor
   builtin echo "${@}" \
-  | xargs -n1 -I @ bash -c 'builtin echo $(generate_divisor @)' \
-  | awk '$0 != ""{print $0}'
+  | xargs -n1 -I @ bash -c 'builtin echo $(generate_divisor @)'
 }
 function re_main(){
-  function reverse(){
-    awk '{for(i=NF;i>0;i--)printf("%s ",$i)}' \
-    | awk 'sub(/ $/,"",$0)'
-  }
-  export -f reverse
-  main "${@}" \
-  | xargs -I @ bash -c 'echo @ | reverse'
+  while read LINE; do
+      awk '{for(i=NF;i>0;i--)printf("%s ",$i)}' <<< "${LINE}" \
+      | awk 'sub(/ $/,"",$0)'
+  done < <(main "${@}")
 }
 
 function option_perse(){
