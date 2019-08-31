@@ -27,9 +27,9 @@
 
 
 
-
 ####ALIAS_ACTIVATION####
 shopt -s expand_aliases
+
 
 ####ALIAS_SETTING####
 function alias_set(){
@@ -58,7 +58,6 @@ function alias_set(){
    fi
   }
 }
-
 
 
 ####MESSAGES####
