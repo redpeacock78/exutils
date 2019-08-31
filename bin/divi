@@ -26,12 +26,12 @@
 ########################################
 
 
+
+
 ####ALIAS_ACTIVATION####
 shopt -s expand_aliases
 
-
-####MESSAGES####
-###ALIAS_SETTING###
+####ALIAS_SETTING####
 function alias_set(){
   {
    if type "gfgrep" > /dev/null 2>&1; then
@@ -60,6 +60,8 @@ function alias_set(){
 }
 
 
+
+####MESSAGES####
 ###VERSION###
 function version(){
   {
