@@ -38,9 +38,9 @@ function alias_set(){
      alias fgrep="gfgrep"
    else
      if [[ "$(fgrep --version | head -n1)" =~ "GNU" ]] > /dev/null 2>&1; then
-       alias fgrep="fgrep"
+       :
       else
-       echo "Error: Please install GNU GREP." && \
+       echo "Error: Please install GNU GREP." 1>&2 && \
        exit 2
      fi
    fi
@@ -50,9 +50,9 @@ function alias_set(){
      alias xargs="gxargs"
    else
      if [[ "$(xargs --version | head -n1)" =~ "GNU" ]] > /dev/null 2>&1; then
-       alias xargs="xargs"
+       :
      else
-       echo "Error: Please install GNU XARGS." && \
+       echo "Error: Please install GNU XARGS." 1>&2 && \
        exit 2
      fi
    fi
@@ -163,8 +163,12 @@ function option_perse(){
   elif [[ "${@}" =~ [0-9]*$ ]]; then
     if [[ "${1}" == -r ]] || \
        [[ "${1}" == --reverse ]]; then
-      declare NUMBER="${2}"
-      re_main "${NUMBER}"
+      if [[ -z "${2}" ]]; then
+        error
+      else
+        declare NUMBER="${2}"
+        re_main "${NUMBER}"
+      fi
     elif [[ "${1}" =~ ^[0-9]*$ ]]; then
       declare NUMBER="${@}"
       main "${NUMBER}"
