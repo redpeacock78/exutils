@@ -47,6 +47,9 @@ function usage(){
 Usage: ${0##*/} [OPTION] [NUMBER]
 Displays standard input while convolving with the given NUMBER.
 
+If NUMBER is not given, NUMBER is automatically interpreted as "1".
+NUMBER cannot be set to a value less than "0".
+
 Option:
   -r, --right      Display with right folding
   -h, --help       Show usage
