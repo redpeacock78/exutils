@@ -18,7 +18,14 @@ See the EXAMPLE for detailed usage.
 - grep(GNU)
 - coreutils(GNU)
 - findutils(GNU)
-<div style="padding:3px 15px;background:#d9edf7;color:#76acc8; border-radius: 15px;-webkit-border-radius:15px;-moz-border-radius:15px;"><b><font color="#76acc8">Tips</font></b> Install the above and install it with the command corresponding to each of the following after passing through PATH.</div>
+<div style="padding:10px;margin-bottom: 10px;border: 1px solid #76acc8;background:#d9edf7;color:#76acc8; border-radius: 15px">
+  <b>
+    <font color="#76acc8">
+      Tips: 
+    </font>
+  </b>
+Install the above and install it with the command corresponding to each of the following after passing through PATH.
+</div>
 
 ### MacOS users
 ```console
