@@ -38,14 +38,28 @@ shopt -s expand_aliases
 ####FUNCTIONS####
 ###ALIAS_SETTING###
 function alias_set(){
-    if type "gfactor" > /dev/null 2>&1; then
-      alias factor="gfactor"
-    elif type "factor" > /dev/null 2>&1; then
-      alias factor="factor"
-    else
-      echo "Error: Please install factor(coreutil)." && \
-      error
-    fi
+  {
+   if type "gfactor" > /dev/null 2>&1; then
+     alias factor="gfactor"
+   elif type "factor" > /dev/null 2>&1; then
+     alias factor="factor"
+   else
+     echo "Error: Please install factor(coreutil)." && \
+     error
+   fi
+  }
+  {
+   if type "gsed" > /dev/null 2>&1; then
+     alias sed="gsed"
+   else
+     if [[ "$(sed --version | head -n1)" =~ "GNU" ]] > /dev/null 2>&1; then
+       :
+      else
+       echo "Error: Please install GNU SED." 1>&2 && \
+       exit 2
+     fi
+   fi
+  }
 }
 
 
