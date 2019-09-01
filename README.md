@@ -66,7 +66,7 @@ $ docker pull redpeacock78/exutils
 # The xargs listed here are GNU xargs, so please change the PATH appropriately for each environment.
 exutils(){
   [ -t 0 ] && T="t" || T=""
-  docker run -i$T --rm docker.io/redpeacock78/exutils $@) \
+  docker run -i$T --rm docker.io/redpeacock78/exutils "$@" \
   | xargs -d\\r\\n \
   | xargs -L1 -I@ bash -c 'echo "@"|tr -s \\n'
 }
