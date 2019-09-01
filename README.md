@@ -1,7 +1,7 @@
 ![ex-utils_logo](https://github.com/redpeacock78/exutils/blob/images/logo.png)
 # A collection of commands to make the troublesome one-liner a little easier
 
-See the sample for detailed usage.
+See the EXAMPLE for detailed usage.
 
 ## About the concept
 
