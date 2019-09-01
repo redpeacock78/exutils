@@ -219,7 +219,8 @@ function separator_option_analysis(){
          error
        fi
      fi
-     awk -v S="${SEPARATOR}" 'gsub(" ",S,$0)' <<< ${PRIME_NUMBERS} && \
+     echo ${PRIME_NUMBERS} \
+     | awk -v s="${SEPARATOR}" 'gsub(" ",s,$0)'
      exit 0
    else
      separator_err && \
@@ -275,11 +276,12 @@ function format_option_analysis(){
        else
          if [[ ! -z "${FORMAT}" ]]; then
            if [[ ! -z "${SEPARATOR}" ]]; then
-             printf "${FORMAT}\n" ${PRIME_NUMBERS} &&
+             printf "${FORMAT}${SEPARATOR}" ${PRIME_NUMBERS} \
+             | awk 'sub(/'"${FILTED_SEPARATOR}"'$/,"",$0)' && \
              exit 0
            else
-             separator_err && \
-             error
+             printf "${FORMAT}\n" ${PRIME_NUMBERS} &&
+             exit 0
            fi
          else
            separator_err && \
