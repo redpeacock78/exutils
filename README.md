@@ -48,5 +48,6 @@ $ brew install exutils
 ```console
 $ git clone https://github.com/redpeacock78/exutils.git $HOME/exutils
 $ echo export PATH='$HOME/exutils:$PATH' >> ~/.bashrc
+$ source ~/.bashrc
 (For zsh, yash, fish, etc., change the .bashrc part accordingly.)
 ```
