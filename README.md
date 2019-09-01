@@ -34,6 +34,7 @@ See the [EXAMPLE](https://github.com/redpeacock78/exutils/blob/master/doc/EXAMPL
 - grep(GNU)
 - coreutils(GNU)
 - findutils(GNU)
+- xargs(GNU) ***(Docker user Only)***
 <div style="padding:10px;margin-bottom: 10px;border: 1px solid #76acc8;background:#d9edf7;color:#76acc8; border-radius: 15px">
   <b>
     <font color="#76acc8">
@@ -63,9 +64,9 @@ $ docker pull redpeacock78/exutils
 # Write the following function in .bashrc etc.
 exutils(){
   [ -t 0 ] && T="t" || T=""
-  docker run -i$T --rm docker.io/redpeacock78/exutils "$@" \
-  | awk -v RS='\r\n' -v ORS='\n' '{print}' \
-  | awk '$0 != ""{print}'
+  docker run -i$T --rm docker.io/redpeacock78/exutils $@) \
+  | xargs -d\\r\\n \
+  | xargs -L1 -I@ bash -c 'echo @|tr -s \\n'
 }
 
 # Run!
