@@ -9,7 +9,7 @@ RUN apk update && \
     rm -rf /var/cache/apk/* && \
     cd home && \
     git clone https://github.com/redpeacock78/exutils && \
-    ln -s /home/exutils/bin/camb /usr/local/bin/ && \
-    ln -s /home/exutils/bin/divi /usr/local/bin/ && \
-    ln -s /home/exutils/bin/prim /usr/local/bin/ && \
+    cp /home/exutils/bin/camb /usr/local/bin/ && \
+    cp /home/exutils/bin/divi /usr/local/bin/ && \
+    cp /home/exutils/bin/prim /usr/local/bin/ && \
     rm -rf exutils/
