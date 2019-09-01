@@ -1,13 +1,15 @@
 FROM alpine
-RUN apk add coreutils && \
-    apk add findutils && \
-    apk add bash && \
-    apk add gawk && \
-    apk add grep && \
-    apk add git && \
+RUN apk update && \
+    apk --no-cache add coreutils && \
+    apk --no-cache add findutils && \
+    apk --no-cache add bash && \
+    apk --no-cache add gawk && \
+    apk --no-cache add grep && \
+    apk --no-cache add git && \
+    rm -rf /var/cache/apk/* && \
     cd home && \
     git clone https://github.com/redpeacock78/exutils && \
-    cd /usr/local/bin && \
-    ln -s /home/exutils/bin/camb camb && \
-    ln -s /home/exutils/bin/divi divi && \
-    ln -s /home/exutils/bin/prim prim
+    ln -s /home/exutils/bin/camb /usr/local/bin/ && \
+    ln -s /home/exutils/bin/divi /usr/local/bin/ && \
+    ln -s /home/exutils/bin/prim /usr/local/bin/ && \
+    rm -rf exutils/
