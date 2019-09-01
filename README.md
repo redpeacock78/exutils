@@ -62,6 +62,7 @@ $ source ~/.bashrc
 $ docker pull redpeacock78/exutils
 
 # Write the following function in .bashrc etc.
+# The xargs listed here are GNU xargs, so please change the PATH appropriately for each environment.
 exutils(){
   [ -t 0 ] && T="t" || T=""
   docker run -i$T --rm docker.io/redpeacock78/exutils $@) \
