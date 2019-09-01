@@ -1,4 +1,6 @@
-<img src="https://raw.githack.com/redpeacock78/exutils/images/logo.png" alt="ex-utils_logo" width="30%">
+<div align="center">
+  <img src="https://raw.githack.com/redpeacock78/exutils/images/logo.png" alt="ex-utils_logo" width="50%">
+</div>
 
 # A collection of commands to make the troublesome one-liner a little easier
 
