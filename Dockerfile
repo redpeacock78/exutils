@@ -1,4 +1,7 @@
 FROM alpine
+
+MAINTAINER redpeacock78
+
 RUN apk update && \
     apk --no-cache add coreutils && \
     apk --no-cache add findutils && \
