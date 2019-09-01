@@ -66,7 +66,7 @@ exutils(){
   [ -t 0 ] && T="t" || T=""
   docker run -i$T --rm docker.io/redpeacock78/exutils $@) \
   | xargs -d\\r\\n \
-  | xargs -L1 -I@ bash -c 'echo @|tr -s \\n'
+  | xargs -L1 -I@ bash -c 'echo "@"|tr -s \\n'
 }
 
 # Run!
