@@ -3,6 +3,17 @@
 
 See the [EXAMPLE](https://github.com/redpeacock78/exutils/blob/master/doc/EXAMPLE.md) for detailed usage.
 
+## TOC
+<!-- MarkdownTOC -->
+
+- About the concept
+- Installation
+	- Depends
+	- MacOS users
+
+<!-- /MarkdownTOC -->
+
+
 ## About the concept
 
 - Commands that were not likely.
