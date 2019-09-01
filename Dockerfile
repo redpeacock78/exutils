@@ -5,6 +5,7 @@ RUN apk update && \
     apk --no-cache add bash && \
     apk --no-cache add gawk && \
     apk --no-cache add grep && \
+    apk --no-cache add sed && \
     apk --no-cache add git && \
     rm -rf /var/cache/apk/* && \
     cd home && \
@@ -12,4 +13,5 @@ RUN apk update && \
     cp /home/exutils/bin/camb /usr/local/bin/ && \
     cp /home/exutils/bin/divi /usr/local/bin/ && \
     cp /home/exutils/bin/prim /usr/local/bin/ && \
-    rm -rf exutils/
+    rm -rf exutils/ && \
+    apk del git
