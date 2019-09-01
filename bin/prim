@@ -149,8 +149,8 @@ function format_check(){
 }
 function filter_separator(){
   echo "${SEPARATOR/\\n}" \
-  | sed 's/\+/\\+/g;s/\^/\\^/g;s/\./\\./g' \
-  | sed 's/\|/\\|/g;s/\*/\\*/g;s/\?/\\?/g'
+  | sed 's/+/\+/g;s/\^/\\^/g;s/\./\\./g' \
+  | sed 's/|/\|/g;s/*/\*/g;s/?/\?/g'
 }
 
 ###MAIN_PROCESSING###
