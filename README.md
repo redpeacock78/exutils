@@ -55,17 +55,17 @@ $ source ~/.bashrc
 
 ### Docker users
 ```console
-# INSTALL
 $ docker pull redpeacock78/exutils
 
-# SETTING(WRITE .*shrc)
+# Write the following function in .bashrc etc.
 exutils(){
   [ -t 0 ] && T="t" || T=""
   docker run -i$T --rm redpeacock78/exutils "$@"
 }
 
-# RUN
-$ docker run -it --rm redpeacock78/exutils prim -v
+# Run!
+$ source ~/.bashrc
+$ exutils prim -v
 prim 0.0.1
 Copyright (C) 2019 redpeacock78
 License GPLv3+: GNU GPL version3 or later.
