@@ -10,7 +10,7 @@ See the sample for detailed usage.
 - Specializing in command line operation.
 - Complex processing can be expressed with just a few characters.
 
-## Installeltion
+## Installation
 
 ### depends
 - bash>=5.0
