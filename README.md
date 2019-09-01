@@ -10,6 +10,7 @@ See the [EXAMPLE](https://github.com/redpeacock78/exutils/blob/master/doc/EXAMPL
 - Installation
 	- Depends
 	- MacOS users
+	- Linux users
 
 <!-- /MarkdownTOC -->
 
@@ -42,4 +43,10 @@ Install the above and install it with the command corresponding to each of the f
 ```console
 $ brew tap redpeacock78/tools
 $ brew install exutils
+```
+### Linux users
+```console
+$ git clone https://github.com/redpeacock78/exutils.git $HOME/exutils
+$ echo export PATH='$HOME/exutils:$PATH' >> ~/.bashrc
+(For zsh, yash, fish, etc., change the .bashrc part accordingly.)
 ```
