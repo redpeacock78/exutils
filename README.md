@@ -41,20 +41,20 @@ Install the above and install it with the command corresponding to each of the f
 </div>
 
 ### MacOS users
-```console
+```sh
 $ brew tap redpeacock78/tools
 $ brew install exutils
 ```
 ### Linux users
-```console
+```sh
 $ git clone https://github.com/redpeacock78/exutils.git $HOME/exutils
 $ echo export PATH='$HOME/exutils:$PATH' >> ~/.bashrc
 $ source ~/.bashrc
-(For zsh, yash, fish, etc., change the .bashrc part accordingly.)
+# (For zsh, yash, fish, etc., change the .bashrc part accordingly.)
 ```
 
 ### Docker users
-```console
+```sh
 $ docker pull redpeacock78/exutils
 
 # Write the following function in .bashrc etc.
