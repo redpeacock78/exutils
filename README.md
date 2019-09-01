@@ -31,6 +31,7 @@ See the [EXAMPLE](https://github.com/redpeacock78/exutils/blob/master/doc/EXAMPL
 ### Depends
 - bash>=5.0
 - awk
+- sed(GNU)
 - grep(GNU)
 - coreutils(GNU)
 - findutils(GNU)
