@@ -11,6 +11,7 @@ See the [EXAMPLE](https://github.com/redpeacock78/exutils/blob/master/doc/EXAMPL
 	- Depends
 	- MacOS users
 	- Linux users
+	- Docker users
 
 <!-- /MarkdownTOC -->
 
@@ -50,4 +51,28 @@ $ git clone https://github.com/redpeacock78/exutils.git $HOME/exutils
 $ echo export PATH='$HOME/exutils:$PATH' >> ~/.bashrc
 $ source ~/.bashrc
 (For zsh, yash, fish, etc., change the .bashrc part accordingly.)
+```
+
+### Docker users
+```console
+# INSTALL
+$ docker pull redpeacock78/exutils
+
+# SETTING(WRITE .*shrc)
+exutils(){
+  [ -t 0 ] && T="t" || T=""
+  docker run -i$T --rm redpeacock78/exutils "$@"
+}
+
+# RUN
+$ docker run -it --rm redpeacock78/exutils prim -v
+prim 0.0.1
+Copyright (C) 2019 redpeacock78
+License GPLv3+: GNU GPL version3 or later.
+
+THIS IS FREE SOFTWARE.
+YOU ARE FREE TO CHANGE AND REDISTRIBUTE IT.
+THERE IS NO WARRANTY, TO THE EXTENT PERMITTED BY LAW.
+
+Written by redpeacock78 <https://github.com/redpeacock78>.
 ```
