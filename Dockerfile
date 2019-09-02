@@ -16,5 +16,6 @@ RUN apk update && \
     cp /home/exutils/bin/camb /usr/local/bin/ && \
     cp /home/exutils/bin/divi /usr/local/bin/ && \
     cp /home/exutils/bin/prim /usr/local/bin/ && \
+    cp /home/exutils/docker/bin/help /usr/local/bin && \
     rm -rf exutils/ && \
     apk del git
