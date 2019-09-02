@@ -35,7 +35,7 @@ See the [EXAMPLE](https://github.com/redpeacock78/exutils/blob/master/doc/EXAMPL
 - grep(GNU)
 - coreutils(GNU)
 - findutils(GNU)
-- xargs(GNU) ***(Docker user Only)***
+
 <div style="padding:10px;margin-bottom: 10px;border: 1px solid #76acc8;background:#d9edf7;color:#76acc8; border-radius: 15px">
   <b>
     <font color="#76acc8">
@@ -65,10 +65,8 @@ $ docker pull redpeacock78/exutils
 # Write the following function in .bashrc etc.
 # The xargs listed here are GNU xargs, so please change the PATH appropriately for each environment.
 exutils(){
-  [ -t 0 ] && T="t" || T=""
-  docker run -i$T --rm docker.io/redpeacock78/exutils "$@" \
-  | xargs -d\\r \
-  | tr -s \\n
+  [ -t 0 ] && T="t" || [ -t 1 ] && T=""
+  docker run -i$T --rm docker.io/redpeacock78/exutils "$@"
 }
 
 # Run!
