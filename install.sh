@@ -47,7 +47,7 @@ For bash:
 echo 'export PATH="$HOME/.exutils/bin:$PATH"' >> ~/.bashrc
 
 For zsh:
-echo 'export PATH="$HOME/.exutils/bin:$PATH"' >> ~/.bashrc
+echo 'export PATH="$HOME/.exutils/bin:$PATH"' >> ~/.zshrc
 
 PATH
   }
@@ -73,7 +73,7 @@ EOS
 function separete_opt(){
   if [[ -z "${@}" ]]; then
     ascii && \
-    echo 'Installing Start ...' && \
+    echo 'Installation Start ...' && \
     install && \
     echo 'Done!' && \
     path
