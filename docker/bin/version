@@ -1,0 +1,22 @@
+#!/usr/bin/env bash
+
+function version(){
+  {
+   cat << EOS >&2
+exutils 0.0.1
+
+Command line extension utilities.
+
+Copyright (C) 2019 redpeacock78
+License GPLv3+: GNU GPL version3 or later.
+
+THIS IS FREE SOFTWARE.
+YOU ARE FREE TO CHANGE AND REDISTRIBUTE IT.
+THERE IS NO WARRANTY, TO THE EXTENT PERMITTED BY LAW.
+
+Written by redpeacock78 <https://github.com/redpeacock78>.
+EOS
+  }
+}
+
+version
