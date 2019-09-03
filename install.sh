@@ -22,13 +22,13 @@ ASCII
 function install(){
   {
    mkdir -p ~/.exutils/bin && \
-   cp /home/exutils/bin/* ~/.exutils/bin
+   cp ~/exutils/bin/* ~/.exutils/bin
   }
 }
 
 function docker(){
   {
-   cp /home/exutils/docker/bin/* ~/.exutils/bin
+   cp ~/exutils/docker/bin/* ~/.exutils/bin
   }
 }
 
