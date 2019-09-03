@@ -43,6 +43,7 @@ echo 'export PATH="$HOME/.exutils/bin:$PATH"' >> ~/.bashrc
 
 For zsh:
 echo 'export PATH="$HOME/.exutils/bin:$PATH"' >> ~/.bashrc
+
 PATH
   }
 }
@@ -71,6 +72,7 @@ function separete_opt(){
     path
   elif [[ "${@}" == --docker ]]; then
   	ascii && \
+  	echo 'For docker...' && \
   	install && \
   	docker && \
   	path
