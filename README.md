@@ -49,13 +49,23 @@ Install the above and install it with the command corresponding to each of the f
 ```sh
 $ brew tap redpeacock78/tools
 $ brew install exutils
+
+# Uninstall
+$ brew uninstall exutils
 ```
 ### Linux users
 ```sh
-$ git clone https://github.com/redpeacock78/exutils.git $HOME/exutils
-$ echo export PATH='$HOME/exutils:$PATH' >> ~/.bashrc
+$ git clone https://github.com/redpeacock78/exutils.git
+$ cd exutils
+$ ./install.sh
+
+# For zsh, yash, fish, etc., change the .bashrc part accordingly.
+$ echo export PATH='$HOME/.exutils/bin:$PATH' >> ~/.bashrc
 $ source ~/.bashrc
-# (For zsh, yash, fish, etc., change the .bashrc part accordingly.)
+
+# Uninstall
+$ cd exutils
+$ ./install.sh --uninstall
 ```
 
 ### Docker users
