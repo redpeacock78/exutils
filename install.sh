@@ -3,7 +3,8 @@
 
 function ascii(){
   {
-   cat << ASCII >&2
+   cat << ASCII
+
 ################################
                    __  _ __    
   ___  _  ____  __/ /_(_) /____
@@ -33,7 +34,8 @@ function docker(){
 
 function path(){
   {
-   cat << PATH >&2
+   cat << "PATH"
+
 Add ~/.exutils/bin to your $PATH for access to the exutils command-line utility.
 
 For bash:
