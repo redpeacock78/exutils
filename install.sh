@@ -25,7 +25,7 @@ function install(){
   }
 }
 
-fuction docker(){
+function docker(){
   {
    cp /home/exutils/docker/bin/* ~/.exutils/bin
   }
