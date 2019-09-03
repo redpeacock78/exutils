@@ -14,7 +14,6 @@ function ascii(){
 
 ################################
 
-Installing Start ...
 ASCII
   }
 }
@@ -30,6 +29,12 @@ function docker(){
   {
    cp ~/exutils/docker/bin/* ~/.exutils/bin
   }
+}
+
+function uninstall(){
+ {
+  rm -rf ~/.exutils
+ }
 }
 
 function path(){
@@ -51,7 +56,7 @@ PATH
 function usage(){
   {
    cat << EOS >&2
-Usage: install.sh [--docker] [-h,--help]
+Usage: install.sh [--docker] [--uninstall] [-h,--help]
 EOS
   }
 }
@@ -68,14 +73,23 @@ EOS
 function separete_opt(){
   if [[ -z "${@}" ]]; then
   	ascii && \
+  	echo 'Installing Start ...'
     install && \
+    echo 'Done!' && \
     path
   elif [[ "${@}" == --docker ]]; then
   	ascii && \
-  	echo 'For docker...' && \
+  	echo 'Installation start ...' && \
+  	echo 'For Docker ...' && \
   	install && \
   	docker && \
+    echo 'Done!' && \
   	path
+  elif [[ "${@}" == --uninstall ]]; then
+  	ascii && \
+  	echo 'Uninstallation start ...' && \
+  	uninstall && \
+  	echo 'Done!'
   elif [[ "${@}" == -h ]]|| \
        [[ "${@}" == --help ]]; then
     usage
