@@ -72,24 +72,24 @@ EOS
 
 function separete_opt(){
   if [[ -z "${@}" ]]; then
-  	ascii && \
-  	echo 'Installing Start ...'
+    ascii && \
+    echo 'Installing Start ...' && \
     install && \
     echo 'Done!' && \
     path
   elif [[ "${@}" == --docker ]]; then
-  	ascii && \
-  	echo 'Installation start ...' && \
-  	echo 'For Docker ...' && \
-  	install && \
-  	docker && \
+    ascii && \
+    echo 'Installation start ...' && \
+    echo 'For Docker ...' && \
+    install && \
+    docker && \
     echo 'Done!' && \
-  	path
+    path
   elif [[ "${@}" == --uninstall ]]; then
-  	ascii && \
-  	echo 'Uninstallation start ...' && \
-  	uninstall && \
-  	echo 'Done!'
+    ascii && \
+    echo 'Uninstallation start ...' && \
+    uninstall && \
+    echo 'Done!'
   elif [[ "${@}" == -h ]]|| \
        [[ "${@}" == --help ]]; then
     usage
