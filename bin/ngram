@@ -107,7 +107,7 @@ function option_perse(){
   elif [[ "${@}" == -v ]] || \
        [[ "${@}" == --version ]]; then
     version
-  elif [[ -p /dev/stdin ]]; then
+  elif [[ ! -t 0 ]]; then
   	declare STDIN="$(cat -)"
   	main "${STDIN}"
   elif [[ -z "${@}" ]]; then
