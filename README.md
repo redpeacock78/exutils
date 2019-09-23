@@ -11,10 +11,10 @@ See the [EXAMPLE](https://github.com/redpeacock78/exutils/blob/master/doc/EXAMPL
 
 - About the concept
 - Installation
-	- Depends
-	- MacOS users
-	- Linux users
-	- Docker users
+  - Depends
+  - MacOS users
+  - Linux users
+  - Docker users
 
 <!-- /MarkdownTOC -->
 
