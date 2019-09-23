@@ -113,7 +113,7 @@ function option_perse(){
        [[ "${@}" == --version ]]; then
     version
   elif [[ -p /dev/stdin ]]; then
-  	declare STDIN="$(cat -)"
+  	declare STDIN="$(awk -v RS='\r\n' -v ORS='\n' '{print}' <(cat -))"
     if [[ "${@}" =~ --fs ]]; then
   	  main "${@}" "${STDIN}"
     else
