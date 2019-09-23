@@ -72,7 +72,6 @@ TL;DR
   ニアム響け！ユーフォニ
   アム響け！ユーフォニア
   ム響け！ユーフォニアム
-  響け！ユーフォニアム響
 EOS
    exit 0
   }
@@ -94,7 +93,9 @@ function main(){
   {
    declare LINE="${@}"
    declare MAX="$((${#LINE} + 1))"
-   declare LINE_COUNT="$(eval printf %s {1..${MAX}})"
+   declare LINE_COUNT="$(eval builtin echo {1..$((${MAX} + 1))})"
+   declare LINE_COUNT="${LINE_COUNT// /.}"
+   declare LINE_COUNT="${LINE_COUNT//[0-9]/}"
    eval builtin echo "${LINE_COUNT//?/${LINE}}" \
    | grep -Eo .{"${MAX}"}
   } 2>/dev/null
@@ -108,7 +109,7 @@ function option_perse(){
        [[ "${@}" == --version ]]; then
     version
   elif [[ -p /dev/stdin ]]; then
-  	declare STDIN="$(cat -)"
+  	declare STDIN="$(awk -v RS='\r\n' -v ORS='\n' '{print}' <(cat -))"
   	main "${STDIN}"
   elif [[ -z "${@}" ]]; then
   	error
