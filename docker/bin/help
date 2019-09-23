@@ -14,12 +14,13 @@ function usage(){
   {
    cat << EOS
 Commands:
-  exutils prim [OPTION] [NUMBER]  # Print prime numbers of given NUMBER.
-  exutils camb [OPTION] [NUMBER]  # Displays standard input while convolving.
-  exutils divi [OPTION] [NUMBER]  # Display divisor of given NUMBER.
-  exutils inv  [OPTION] [ARRAYS]  # Inverts the permutation of the array.
-  exutils help [COMMAND]          # Describe available commands or one specific command.
-  exutils version                 # Show version and info
+  exutils prim [OPTION] [NUMBER]   # Print prime numbers of given NUMBER.
+  exutils camb [OPTION] [NUMBER]   # Displays standard input while convolving.
+  exutils divi [OPTION] [NUMBER]   # Display divisor of given NUMBER.
+  exutils inv  [OPTION] [ARRAYS]   # Inverts the permutation of the array.
+  exutils ngram [OPTION] [STRING]  # Displays the N-gram of the passed string.
+  exutils help [COMMAND]           # Describe available commands or one specific command.
+  exutils version                  # Show version and info
 EOS
   }
 }
@@ -115,6 +116,43 @@ EOS
   }
 }
 
+function ngram(){
+  {
+   cat << EOS
+Usage: ngram [OPTION] [STRING]
+Displays the N-gram of the passed string.
+
+Option:
+  -h, --help          Show usage
+  -v, --version       Show version and info
+
+TL;DR
+  $ ngram 高須クリニック
+  高須クリニック高
+  須クリニック高須
+  クリニック高須ク
+  リニック高須クリ
+  ニック高須クリニ
+  ック高須クリニッ
+  ク高須クリニック
+
+  $ echo 響け！ユーフォニアム | ngram
+  響け！ユーフォニアム響
+  け！ユーフォニアム響け
+  ！ユーフォニアム響け！
+  ユーフォニアム響け！ユ
+  ーフォニアム響け！ユー
+  フォニアム響け！ユーフ
+  ォニアム響け！ユーフォ
+  ニアム響け！ユーフォニ
+  アム響け！ユーフォニア
+  ム響け！ユーフォニアム
+  響け！ユーフォニアム響
+EOS
+   exit 0
+  }
+}
+
 function perse_com(){
   if [[ -z "${1}" ]]; then
     usage
@@ -126,6 +164,8 @@ function perse_com(){
     divi
   elif [[ "${1}" == inv ]]; then
     inv
+  elif [[ "${1}" == ngram ]]; then
+    ngram
   else
     error
   fi
