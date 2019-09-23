@@ -145,7 +145,7 @@ function option_perse(){
   export LC_ALL=C
   export LANG=C
   if [[ -p /dev/stdin ]]; then
-    declare NUMBER="$(cat - | awk -v RS='\r\n' -v ORS='\n' '{print}')"
+    declare NUMBER="$(awk -v RS='\r\n' -v ORS='\n' '{print}' <(cat - ))"
     if [[ "${@}" == -r ]] || \
        [[ "${@}" == --reverse ]]; then
       re_main "${NUMBER}"
