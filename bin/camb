@@ -98,7 +98,7 @@ function shift_args(){
 
 function pass_stdin(){
   if [[ -p /dev/stdin ]]; then
-    declare STDIN="$(echo $(cat -) | awk -v RS='\r\n' -v ORS='\n' '{print}')"
+    declare STDIN="$(awk -v RS='\r\n' -v ORS='\n' '{print}' <(cat -))"
     declare ARRAY_STDIN=($(echo ${STDIN}))
     if [[ "${1}" == -r ]] || \
        [[ "${1}" == --right ]]; then
