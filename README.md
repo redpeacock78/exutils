@@ -74,7 +74,8 @@ $ docker pull redpeacock78/exutils
 
 # Write the following function in .bashrc etc.
 exutils(){
-  docker run -i --rm docker.io/redpeacock78/exutils "$@"
+  [ -t 0 ] && T="t" || T=""
+  docker run -i$T --rm docker.io/redpeacock78/exutils "$@"
 }
 
 # Run!
