@@ -96,7 +96,7 @@ EOS
 function inv(){
   {
    cat << EOS
-Usage: ${0##*/} [OPTION] [ARRAYS]
+Usage: inv [OPTION] [ARRAYS]
 Inverts the permutation of the array.
 
 Option:
