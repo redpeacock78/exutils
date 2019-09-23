@@ -5,7 +5,7 @@
 # @(#)GPLv3+ is applied to this script.
 # @(#)
 ########################################
-# @(#)Inverts the permutation of the array.
+# @(#)Displays the N-gram of the passed string.
 # @(#)Grobals:
 # @(#)  None
 # @(#)Arguments:
@@ -44,8 +44,8 @@ EOS
 function usage(){
   {
    cat << EOS
-Usage: ${0##*/} [OPTION] [ARRAYS]
-Inverts the permutation of the array.
+Usage: ${0##*/} [OPTION] [STRING]
+Displays the N-gram of the passed string.
 
 Option:
   -h, --help          Show usage
