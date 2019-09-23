@@ -2,7 +2,7 @@
 
 function error(){
   {
-   cat << ERR 1>&2 
+   cat << ERR >&2 
 Sorry. An error has occurred :_(
 Refer "exutils help" for how to use the command.
 ERR
@@ -12,11 +12,12 @@ ERR
 
 function usage(){
   {
-   cat << EOS >&2
+   cat << EOS
 Commands:
   exutils prim [OPTION] [NUMBER]  # Print prime numbers of given NUMBER.
   exutils camb [OPTION] [NUMBER]  # Displays standard input while convolving.
   exutils divi [OPTION] [NUMBER]  # Display divisor of given NUMBER.
+  exutils inv  [OPTION] [ARRAYS]  # Inverts the permutation of the array.
   exutils help [COMMAND]          # Describe available commands or one specific command.
   exutils version                 # Show version and info
 EOS
@@ -25,7 +26,7 @@ EOS
 
 function prim(){
   {
-   cat << EOS >&2
+   cat << EOS
 Usage: prim [OPTION]... FIRST 
    or: prim [OPTION]... FIRST LAST 
    or: prim [OPTION]... FIRST INCREMENT LAST 
@@ -43,7 +44,7 @@ EOS
 
 function camb(){
   {
-   cat << EOS >&2
+   cat << EOS
 Usage: camb [OPTION] [NUMBER] 
 Displays standard input while convolving with the given NUMBER.
 
@@ -69,7 +70,7 @@ EOS
 
 function divi(){
   {
-   cat << EOS >&2
+   cat << EOS
 Usage: divi [OPTION] [NUMBER] 
 Display divisor of given NUMBER. 
 
@@ -92,6 +93,28 @@ EOS
   }
 }
 
+function inv(){
+  {
+   cat << EOS
+Usage: ${0##*/} [OPTION] [ARRAYS]
+Inverts the permutation of the array.
+
+Option:
+  --fs=[SEPARATOR]    Specifies the separator used for the array (Default: " ")
+  -h, --help          Show usage
+  -v, --version       Show version and info
+
+TL;DR
+  $ inv 1 22 345 567 3 4 4578 90000 456 13 7
+  7 13 456 90000 4578 4 3 567 345 22 1
+
+  $ echo 1,22,345,567,3,4 | inv --fs=,
+  4,3,567,345,22,1
+EOS
+   exit 0
+  }
+}
+
 function perse_com(){
   if [[ -z "${1}" ]]; then
     usage
@@ -101,6 +124,8 @@ function perse_com(){
     camb
   elif [[ "${1}" == divi ]]; then
     divi
+  elif [[ "${1}" == inv ]]; then
+    inv
   else
     error
   fi

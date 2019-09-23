@@ -1,0 +1,131 @@
+#!/usr/bin/env bash
+#
+# @(#)inv 0.0.1
+# @(#)(c) 2019 redpeacock78
+# @(#)GPLv3+ is applied to this script.
+# @(#)
+########################################
+# @(#)Inverts the permutation of the array.
+# @(#)Grobals:
+# @(#)  None
+# @(#)Arguments:
+# @(#)  --fs=[DELIMITER]
+# @(#)  -h, --help
+# @(#)  -v, --version
+# @(#)Returns:
+# @(#)  None
+# @(#)Depends:
+# @(#)  BASH
+# @(#)  AWK
+# @(#)  CAT
+########################################
+
+
+
+####MESSAGES####
+###VERSION###
+function version(){
+  {
+   cat << EOS
+${0##*/} 0.0.1
+Copyright (C) 2019 redpeacock78
+License GPLv3+: GNU GPL version3 or later.
+
+THIS IS FREE SOFTWARE.
+YOU ARE FREE TO CHANGE AND REDISTRIBUTE IT.
+THERE IS NO WARRANTY, TO THE EXTENT PERMITTED BY LAW.
+
+Written by redpeacock78 <https://github.com/redpeacock78>.
+EOS
+   exit 0
+  }
+}
+###SHOW_USAGE###
+function usage(){
+  {
+   cat << EOS
+Usage: ${0##*/} [OPTION] [ARRAYS]
+Inverts the permutation of the array.
+
+Option:
+  --fs=[SEPARATOR]    Specifies the separator used for the array (Default: " ")
+  -h, --help          Show usage
+  -v, --version       Show version and info
+
+TL;DR
+  $ inv 1 22 345 567 3 4 4578 90000 456 13 7
+  7 13 456 90000 4578 4 3 567 345 22 1
+
+  $ echo 1,22,345,567,3,4 | inv --fs=,
+  4,3,567,345,22,1
+EOS
+   exit 0
+  }
+}
+###ERROR_MESSAGE###
+function error(){
+  {
+   cat << ERR >&2
+${0##*/}: Sorry. An error has occurred :_(
+Refer '${0##*/} -h' or '${0##*/} --help' for how to use the command.
+ERR
+   exit 1
+  }
+}
+
+
+####MAIN_PROCESSING####
+function main(){
+  if [[ "${1}" =~ --fs ]]; then
+  	declare FS="${1#*=}"
+  	declare LINE="${2}"
+  	if [[ -z "${FS}" ]]; then
+      error
+    elif [[ "${LINE: -1}" == "${FS}" ]]; then
+      error
+    elif [[ ! "${LINE}" =~ "${FS}" ]]; then
+      error
+    fi
+  else
+  	declare FS=" "
+  	declare LINE="${@}"
+  	if [[ "${LINE: -1}" == "${FS}" ]]; then
+      error
+  	elif [[ ! "${LINE}" =~ "${FS}" ]]; then
+      error
+    fi
+  fi
+  convert
+}
+
+function convert(){
+  {
+   awk -v FS="${FS}" '{for(i=NF;i>0;i--)printf("%s"FS"",$i);printf("\n");}' <<< "${LINE}" \
+   | awk 'sub(/'"${FS}"'$/,"",$0)'
+  } 2>/dev/null
+}
+
+function option_perse(){
+  if [[ "${@}" == -h ]] || \
+     [[ "${@}" == --help ]]; then
+    usage
+  elif [[ "${@}" == -v ]] || \
+       [[ "${@}" == --version ]]; then
+    version
+  elif [[ -p /dev/stdin ]]; then
+  	declare STDIN="$(cat -)"
+    if [[ "${@}" =~ --fs ]]; then
+  	  main "${@}" "${STDIN}"
+    else
+  	  main "${@}" "${STDIN}"
+    fi
+  else
+    if [[ "${@}" =~ --fs ]]; then
+  	  main "${@}"
+    else
+  	  main "${@}"
+    fi
+  fi
+}
+
+option_perse "${@}"
