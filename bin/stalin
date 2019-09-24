@@ -78,9 +78,8 @@ function grate_purge(){
   {
    declare not_guilty=("${1}")
    for NKVD in "${@:2}"; do
-     if (( "${NKVD}" >= "${not_guilty[-1]}" )); then
-       not_guilty+=("${NKVD}")
-     fi
+     (( "${NKVD}" >= "${not_guilty[-1]}" )) \
+     && declare not_guilty+=("${NKVD}")
    done
    echo "${not_guilty[@]}"
   } 2>/dev/null
