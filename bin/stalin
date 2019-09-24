@@ -76,12 +76,12 @@ ERR
 ####MAIN_PROCESSING####
 function grate_purge(){
   {
-   declare not_guilty=("${1}")
+   declare -a not_guilty=("${1}")
    for NKVD in "${@:2}"; do
      (( "${NKVD}" >= "${not_guilty[-1]}" )) \
-     && declare not_guilty+=("${NKVD}")
+     && declare -a not_guilty+=("${NKVD}")
    done
-   echo "${not_guilty[@]}"
+   builtin echo "${not_guilty[@]}"
   } 2>/dev/null
 }
 
@@ -94,12 +94,12 @@ function arrest(){
     version
   else
     if [[ -p /dev/stdin ]]; then
-      declare anarchist=($(awk -v RS='\r\n' -v ORS='\n' '{print}' <(cat -)))
+      declare -a anarchist=($(awk -v RS='\r\n' -v ORS='\n' '{print}' <(cat -)))
       grate_purge "${anarchist[@]}"
     elif [[ -z "${@}" ]]; then
       error
     else
-      declare anarchist=("${@}")
+      declare -a anarchist=("${@}")
       grate_purge "${anarchist[@]}"
     fi
   fi
