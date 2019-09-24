@@ -14,13 +14,15 @@ function usage(){
   {
    cat << EOS
 Commands:
-  exutils prim [OPTION] [NUMBER]   # Print prime numbers of given NUMBER.
-  exutils camb [OPTION] [NUMBER]   # Displays standard input while convolving.
-  exutils divi [OPTION] [NUMBER]   # Display divisor of given NUMBER.
-  exutils inv  [OPTION] [ARRAYS]   # Inverts the permutation of the array.
-  exutils ngram [OPTION] [STRING]  # Displays the N-gram of the passed string.
-  exutils help [COMMAND]           # Describe available commands or one specific command.
-  exutils version                  # Show version and info
+  exutils prim [OPTION] [NUMBER]      # Print prime numbers of given NUMBER.
+  exutils camb [OPTION] [NUMBER]      # Displays standard input while convolving.
+  exutils divi [OPTION] [NUMBER]      # Display divisor of given NUMBER.
+  exutils inv  [OPTION] [ARRAYS]      # Inverts the permutation of the array.
+  exutils ngram [OPTION] [STRING]     # Displays the N-gram of the passed string.
+  exutils stalin [OPTION] [ELEMENTS]  # Excutes the Stalin sort algorithm with the calculation 
+                                        amount O(n) for the passed elements.
+  exutils help [COMMAND]              # Describe available commands or one specific command.
+  exutils version                     # Show version and info
 EOS
   }
 }
@@ -152,6 +154,27 @@ EOS
   }
 }
 
+function stalin(){
+  {
+   cat << EOS
+Usage: stalin [OPTION] [ELEMENTS]
+Excutes the Stalin sort algorithm with the calculation amount O(n) for the passed elements.
+
+Option:
+  -h, --help          Show usage
+  -v, --version       Show version and info
+
+TL;DR
+  $ stalin 9 8 7 6 5 4 3 2 1
+  9
+
+  $ echo 1 1 3 5 2 9 8 7 4 2 9 10 | stalin
+  1 1 3 5 9 9 10
+EOS
+   exit 0
+  }
+}
+
 function perse_com(){
   if [[ -z "${1}" ]]; then
     usage
@@ -165,6 +188,8 @@ function perse_com(){
     inv
   elif [[ "${1}" == ngram ]]; then
     ngram
+  elif [[ "${1}" == stalin ]]; then
+    stalin
   else
     error
   fi
