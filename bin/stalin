@@ -1,0 +1,109 @@
+#!/usr/bin/env bash
+#
+# @(#)ngram 0.0.1
+# @(#)(c) 2019 redpeacock78
+# @(#)GPLv3+ is applied to this script.
+# @(#)
+########################################
+# @(#)Excutes the Stalin sort algorithm with the calculation amount O(n) for the passed elements.
+# @(#)Grobals:
+# @(#)  None
+# @(#)Arguments:
+# @(#)  -h, --help
+# @(#)  -v, --version
+# @(#)Returns:
+# @(#)  None
+# @(#)Depends:
+# @(#)  BASH
+# @(#)  AWK
+# @(#)  CAT
+########################################
+
+
+
+
+####MESSAGES####
+###VERSION###
+function version(){
+  {
+   cat << EOS
+${0##*/} 0.0.1
+Copyright (C) 2019 redpeacock78
+License GPLv3+: GNU GPL version3 or later.
+
+THIS IS FREE SOFTWARE.
+YOU ARE FREE TO CHANGE AND REDISTRIBUTE IT.
+THERE IS NO WARRANTY, TO THE EXTENT PERMITTED BY LAW.
+
+Written by redpeacock78 <https://github.com/redpeacock78>.
+EOS
+   exit 0
+  }
+}
+###SHOW_USAGE###
+function usage(){
+  {
+   cat << EOS
+Usage: ${0##*/} [OPTION] [ELEMENTS]
+Excutes the Stalin sort algorithm with the calculation amount O(n) for the passed elements.
+
+Option:
+  -h, --help          Show usage
+  -v, --version       Show version and info
+
+TL;DR
+  $ ${0##*/} 9 8 7 6 5 4 3 2 1
+  9
+
+  $ echo 1 1 3 5 2 9 8 7 4 2 9 10 | ${0##*/}
+  1 1 3 5 9 9 10
+EOS
+   exit 0
+  }
+}
+###ERROR_MESSAGE###
+function error(){
+  {
+   cat << ERR >&2
+${0##*/}: Sorry. An error has occurred :_(
+Refer '${0##*/} -h' or '${0##*/} --help' for how to use the command.
+ERR
+   exit 1
+  }
+}
+
+
+####MAIN_PROCESSING####
+function grate_purge(){
+  {
+   declare not_guilty=("${1}")
+   for NKVD in "${@:2}"; do
+     if (( "${NKVD}" >= "${not_guilty[-1]}" )); then
+       not_guilty+=("${NKVD}")
+     fi
+   done
+   echo "${not_guilty[@]}"
+  } 2>/dev/null
+}
+
+function arrest(){
+  if [[ "${@}" == -h ]] || \
+     [[ "${@}" == --help ]]; then
+    usage
+  elif [[ "${@}" == -v ]] || \
+       [[ "${@}" == --version ]]; then
+    version
+  else
+    if [[ -p /dev/stdin ]]; then
+      declare anarchist=($(awk -v RS='\r\n' -v ORS='\n' '{print}' <(cat -)))
+      grate_purge "${anarchist[@]}"
+    elif [[ -z "${@}" ]]; then
+      error
+    else
+      declare anarchist=("${@}")
+      grate_purge "${anarchist[@]}"
+    fi
+  fi
+}
+
+arrest "${@}"
