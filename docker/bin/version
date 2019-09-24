@@ -3,9 +3,10 @@
 function version(){
   {
    cat << EOS >&2
-exutils 0.0.1
+ex-utils 0.0.1
 
-Command line extension utilities.
+Command line extention utilities.
+A collection of commands to make the troublesome one-liner a little easier.
 
 Copyright (C) 2019 redpeacock78
 License GPLv3+: GNU GPL version3 or later.
