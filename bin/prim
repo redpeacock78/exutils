@@ -176,6 +176,10 @@ function separator_option(){
       elif [[ "${2}" =~ --format= ]]; then
         shift && declare FORMAT_OPT="${1}"
         declare FORMAT="${1#*=}"
+      elif [[ "${2}" == -w ]]; then
+        shift && declare WIDTH_OPT="${1}"
+      elif [[ "${2}" == --equal-width ]]; then
+        shift && declare WIDTH_OPT="${1}"
       fi
     elif [[ "${1}" =~ = ]]; then
       declare SEPARATOR="$(sed 's/[0-9]*//' <<< "${1#*=}")"
@@ -185,6 +189,10 @@ function separator_option(){
       elif [[ "${2}" =~ --format= ]]; then
         shift && declare FORMAT_OPT="${1}"
         declare FORMAT="${1#*=}"
+      elif [[ "${2}" == -w ]]; then
+        shift && declare WIDTH_OPT="${1}"
+      elif [[ "${2}" == --equal-width ]]; then
+        shift && declare WIDTH_OPT="${1}"
       fi
     fi
    }
@@ -218,6 +226,12 @@ function separator_option_analysis(){
          format_err && \
          error
        fi
+     elif [[ ! -z "${WIDTH_OPT}" ]]; then
+       declare FILTED_SEPARATOR="$(filter_separator)"
+       declare WIDTH="$(tail -n1 <<< "${PRIME_NUMBERS}")"
+       printf "%0${#WIDTH}d${SEPARATOR}" ${PRIME_NUMBERS} \
+       | awk 'sub(/'"${FILTED_SEPARATOR}"'$/,"",$0)' && \
+       exit 0
      fi
      echo ${PRIME_NUMBERS} \
      | awk -v s="${SEPARATOR}" 'gsub(" ",s,$0)'
