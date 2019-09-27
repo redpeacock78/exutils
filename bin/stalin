@@ -75,14 +75,25 @@ ERR
 
 ####MAIN_PROCESSING####
 function grate_purge(){
-  {
-   declare -a not_guilty=("${1}")
-   for NKVD in "${@:2}"; do
-     (( "${NKVD}" >= "${not_guilty[-1]}" )) \
-     && declare -a not_guilty+=("${NKVD}")
-   done
-   builtin echo "${not_guilty[@]}"
-  } 2>/dev/null
+  function investigation(){
+  	{
+     while IFS= read FUGITIVE_WARRANT; do
+       declare -a ARRESTED=(${FUGITIVE_WARRANT})
+       interrogation "${ARRESTED[@]}"
+     done < <(builtin echo "${@}")
+    } 2>/dev/null
+  }
+  function interrogation(){
+  	{
+     declare -a NOT_GUILTY=("${1}")
+     for NKVD in "${@:2}"; do
+       (( "${NKVD}" >= "${NOT_GUILTY[-1]}" )) \
+       && declare -a NOT_GUILTY+=("${NKVD}")
+     done
+     builtin echo "${NOT_GUILTY[@]}"
+    } 2>/dev/null
+  }
+  investigation "${@}"
 }
 
 function arrest(){
@@ -94,13 +105,16 @@ function arrest(){
     version
   else
     if [[ -p /dev/stdin ]]; then
-      declare -a anarchist=($(awk -v RS='\r\n' -v ORS='\n' '{print}' <(cat -)))
-      grate_purge "${anarchist[@]}"
+      declare ANARCHIST="$(awk -v RS='\r\n' -v ORS='\n' '{print}' <(cat -))"
+      grate_purge "${ANARCHIST}"
+    elif [[ "${@}" =~ /dev/fd/ ]]; then
+      declare ANARCHIST="$(awk -v RS='\r\n' -v ORS='\n' '{print}' <(cat ${@}))"
+      grate_purge "${ANARCHIST}"
     elif [[ -z "${@}" ]]; then
       error
     else
-      declare -a anarchist=("${@}")
-      grate_purge "${anarchist[@]}"
+      declare ANARCHIST="${@}"
+      grate_purge "${ANARCHIST}"
     fi
   fi
 }
