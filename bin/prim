@@ -169,7 +169,7 @@ function separator_option(){
   {
    {
     if [[ "${1}" == -s ]]; then
-      shift && declare SEPARATOR="${1/[0-9]*}"
+      shift && declare SEPARATOR="$(sed 's/-w//;s/--equal-width//' <<< "${1/[0-9]*}")"
       if [[ "${2}" == -f ]]; then
         shift && declare FORMAT_OPT="${1}"
         shift && declare FORMAT="${1}"
