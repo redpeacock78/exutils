@@ -4,7 +4,7 @@
 
 # A collection of commands to make the troublesome one-liner a little easier
 
-Click here for Japanese → [README(JAPANESE)](https://github.com/redpeacock78/exutils/blob/master/doc/README_JAPANESE.md)
+Click here for Japanese → [README(JAPANESE)](https://github.com/redpeacock78/exutils/blob/master/doc/README_JAPANESE.md) 
 See the [EXAMPLE](https://github.com/redpeacock78/exutils/blob/master/doc/EXAMPLE.md) for detailed usage.
 
 ## TOC
