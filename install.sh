@@ -28,9 +28,11 @@ function install(){
   }
 }
 
-function docker(){
+function docker_install(){
   {
-   cp $(pwd)/docker/bin/* ~/.exutils/bin
+   mkdir -p ~/.exutils/bin && \
+   cp ~/exutils/bin/* ~/.exutils/bin && \
+   cp ~/exutils/docker/bin/* ~/.exutils/bin
   }
 }
 
@@ -84,8 +86,7 @@ function separete_opt(){
     ascii && \
     echo 'Installation start ...' && \
     echo 'For Docker ...' && \
-    install && \
-    docker && \
+    docker_install && \
     echo 'Done!' && \
     path
   elif [[ "${@}" == --uninstall ]]; then
