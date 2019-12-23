@@ -5,14 +5,17 @@ function ascii(){
   {
    cat << ASCII
 
-################################
-                   __  _ __    
-  ___  _  ____  __/ /_(_) /____
- / _ \| |/_/ / / / __/ / / ___/
-/  __/>  </ /_/ / /_/ / (__  ) 
-\___/_/|_|\__,_/\__/_/_/____/
+##########################################
+                         __  _ __    
+        ___  _  ____  __/ /_(_) /____
+       / _ \| |/_/ / / / __/ / / ___/
+      /  __/>  </ /_/ / /_/ / (__  ) 
+      \___/_/|_|\__,_/\__/_/_/____/
 
-################################
+##########################################
+Copyright (C) 2019 redpeacock78
+License GPLv3+: GNU GPL version3 or later.
+##########################################
 
 ASCII
   }
@@ -21,13 +24,13 @@ ASCII
 function install(){
   {
    mkdir -p ~/.exutils/bin && \
-   cp ~/exutils/bin/* ~/.exutils/bin
+   cp $(pwd)/bin/* ~/.exutils/bin
   }
 }
 
 function docker(){
   {
-   cp ~/exutils/docker/bin/* ~/.exutils/bin
+   cp $(pwd)/docker/bin/* ~/.exutils/bin
   }
 }
 
