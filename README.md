@@ -56,6 +56,10 @@ Install the above and install it with the command corresponding to each of the f
 $ brew tap redpeacock78/tools
 $ brew install exutils
 
+# Update
+$ brew update && brew reinstall exutils
+(In the future, we plan to migrate from "brew reinstall" to "brew upgrade" command.)
+
 # Uninstall
 $ brew uninstall exutils
 ```
@@ -73,6 +77,8 @@ $ source ~/.bashrc
 # Uninstall
 $ cd exutils
 $ ./install.sh --uninstall
+
+### It is possible to install as above, but if you use Linuxbrew you can install it in the same way as MacOS. ###
 ```
 
 ### Docker users
