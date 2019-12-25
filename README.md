@@ -74,6 +74,11 @@ $ ./install.sh
 $ echo export PATH='$HOME/.exutils/bin:$PATH' >> ~/.bashrc
 $ source ~/.bashrc
 
+# Update
+$ cd exutils
+$ git pull
+$ ./install.sh --update
+
 # Uninstall
 $ cd exutils
 $ ./install.sh --uninstall
