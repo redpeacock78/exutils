@@ -119,7 +119,12 @@ $ bash <(curl -s https://raw.githubusercontent.com/redpeacock78/exutils/master/b
 # 恒久的に使用したい場合
 # 以下を.bashrcなどに記述
 exutils(){
-  bash <(curl -s "https://raw.githubusercontent.com/redpeacock78/exutils/master/bin/${1}") "${@:2}"
+  if [[ "${1}" == help ]] ||\
+     [[ "${@}" == version ]]; then
+    bash <(curl -s "https://raw.githubusercontent.com/redpeacock78/exutils/master/docker/bin/${1}") "${2}"
+  else
+    bash <(curl -s "https://raw.githubusercontent.com/redpeacock78/exutils/master/bin/${1}") "${@:2}"
+  fi
 }
 
 # 設定を再読み込み
