@@ -97,6 +97,12 @@ YOU ARE FREE TO CHANGE AND REDISTRIBUTE IT.
 THERE IS NO WARRANTY, TO THE EXTENT PERMITTED BY LAW.
 
 Written by redpeacock78 <https://github.com/redpeacock78>.
+
+# アップデート
+$ docker pull redpeacock78/exutils && docker rmi -f $(docker images | grep docker.io/redpeacock78/exutils | grep none | awk '{print $3}')
+
+# アンインストール
+$ docker rmi -f $(docker images | grep docker.io/redpeacock78/exutils | grep latest | awk '{print $3}')
 ```
 
 ## インストールを行わずに気軽に使いたい
