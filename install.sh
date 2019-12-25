@@ -36,6 +36,12 @@ function docker_install(){
   }
 }
 
+function update(){
+  {
+   cp -f $(pwd)/bin/* ~/.exutils/bin
+  }
+}
+
 function uninstall(){
  {
   rm -rf ~/.exutils
@@ -78,7 +84,7 @@ EOS
 function separete_opt(){
   if [[ -z "${@}" ]]; then
     ascii && \
-    echo 'Installation Start ...' && \
+    echo 'Installation start ...' && \
     install && \
     echo 'Done!' && \
     path
@@ -89,6 +95,11 @@ function separete_opt(){
     docker_install && \
     echo 'Done!' && \
     path
+  elif [[ "${@}" == --update ]]; then
+    ascii && \
+    echo 'Update start ...' && \
+    update && \
+    echo 'Done!'
   elif [[ "${@}" == --uninstall ]]; then
     ascii && \
     echo 'Uninstallation start ...' && \
