@@ -14,6 +14,9 @@
 	- MacOSでのインストール方法
 	- Linuxでのインストール方法
 	- Dockerによるインストール方法
+- インストールせずにもっと手軽に使いたい
+	- 依存関係
+	- 方法
 
 <!-- /MarkdownTOC -->
 
@@ -93,4 +96,48 @@ YOU ARE FREE TO CHANGE AND REDISTRIBUTE IT.
 THERE IS NO WARRANTY, TO THE EXTENT PERMITTED BY LAW.
 
 Written by redpeacock78 <https://github.com/redpeacock78>.
+```
+
+## インストールせずにもっと手軽に使いたい
+インストールをせずに使うときは[インストールでの依存関係](#依存関係)に加えて以下のものが必要になります。
+
+### 依存関係
+- インターネット接続
+- curl
+
+### 方法
+```sh
+# 一時的に使用する場合
+$ bash <(curl -s https://raw.githubusercontent.com/redpeacock78/exutils/master/bin/ngram) 御旗のもとに
+御旗のもとに御
+旗のもとに御旗
+のもとに御旗の
+もとに御旗のも
+とに御旗のもと
+に御旗のもとに
+
+# 恒久的に使用したい場合
+# 以下を.bashrcなどに記述
+exutils(){
+  bash <(curl -s "https://raw.githubusercontent.com/redpeacock78/exutils/master/bin/${1}") "${@:2}"
+}
+
+# 設定を再読み込み
+$ source ~/.bashrc
+
+# 実行
+$ exutils prim -w 100 | exutils camb 13
+02 03 05 07 11 13 17 19 23 29 31 37 41
+03 05 07 11 13 17 19 23 29 31 37 41 43
+05 07 11 13 17 19 23 29 31 37 41 43 47
+07 11 13 17 19 23 29 31 37 41 43 47 53
+11 13 17 19 23 29 31 37 41 43 47 53 59
+13 17 19 23 29 31 37 41 43 47 53 59 61
+17 19 23 29 31 37 41 43 47 53 59 61 67
+19 23 29 31 37 41 43 47 53 59 61 67 71
+23 29 31 37 41 43 47 53 59 61 67 71 73
+29 31 37 41 43 47 53 59 61 67 71 73 79
+31 37 41 43 47 53 59 61 67 71 73 79 83
+37 41 43 47 53 59 61 67 71 73 79 83 89
+41 43 47 53 59 61 67 71 73 79 83 89 97
 ```
