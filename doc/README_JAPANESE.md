@@ -52,6 +52,10 @@
 $ brew tap redpeacock78/tools
 $ brew install exutils
 
+# アップデート
+$ brew update && brew reinstall exutils
+(現在は"brew reinstall"を使用していますが、今後は"brew upgrade"を使用する予定です。)
+
 # アンインストール
 $ brew uninstall exutils
 ```
@@ -69,6 +73,8 @@ $ source ~/.bashrc
 # アンインストール
 $ cd exutils
 $ ./install.sh --uninstall
+
+### 上記のようにインストールすることも可能ですがLinuxbrewを使用すればMacOSと同じ方法でインストールできます。 ###
 ```
 
 ### Dockerによるインストール方法
