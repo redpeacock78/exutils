@@ -70,6 +70,11 @@ $ ./install.sh
 $ echo export PATH='$HOME/.exutils/bin:$PATH' >> ~/.bashrc
 $ source ~/.bashrc
 
+# アップデート
+$ cd exutils
+$ git pull
+$ ./install.sh --update
+
 # アンインストール
 $ cd exutils
 $ ./install.sh --uninstall
