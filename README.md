@@ -13,10 +13,13 @@ See the [EXAMPLE](https://github.com/redpeacock78/exutils/blob/master/doc/EXAMPL
 
 - About the concept
 - Installation
-  - Depends
+  - Dependencies
   - MacOS users
   - Linux users
   - Docker users
+- I want to use it easily without installing :-)
+  - Dependencies
+  - Method
 
 <!-- /MarkdownTOC -->
 
@@ -30,7 +33,7 @@ See the [EXAMPLE](https://github.com/redpeacock78/exutils/blob/master/doc/EXAMPL
 
 ## Installation
 
-### Depends
+### Dependencies
 - bash>=5.0
 - awk
 - sed(GNU)
@@ -49,6 +52,7 @@ Install the above and install it with the command corresponding to each of the f
 
 ### MacOS users
 ```sh
+# Install
 $ brew tap redpeacock78/tools
 $ brew install exutils
 
@@ -57,6 +61,7 @@ $ brew uninstall exutils
 ```
 ### Linux users
 ```sh
+# Install
 $ git clone https://github.com/redpeacock78/exutils.git
 $ cd exutils
 $ ./install.sh
@@ -71,7 +76,9 @@ $ ./install.sh --uninstall
 ```
 
 ### Docker users
+When installing using Docker, there is no need to install [Dependencies](#Dependencies).
 ```sh
+# Install
 $ docker pull redpeacock78/exutils
 
 # Write the following function in .bashrc etc.
@@ -92,4 +99,59 @@ YOU ARE FREE TO CHANGE AND REDISTRIBUTE IT.
 THERE IS NO WARRANTY, TO THE EXTENT PERMITTED BY LAW.
 
 Written by redpeacock78 <https://github.com/redpeacock78>.
+
+# Update
+$ docker pull redpeacock78/exutils && docker rmi -f $(docker images | grep docker.io/redpeacock78/exutils | grep none | awk '{print $3}')
+
+# Uninstall
+$ docker rmi -f $(docker images | grep docker.io/redpeacock78/exutils | grep latest | awk '{print $3}')
+```
+
+## I want to use it easily without installing :-)
+When using without installation, the following items are required in addition to [Dependencies at installation](#Dependencies).
+
+### Dependencies
+- Internet connection
+- curl
+
+### Method
+```sh
+# For temporary use.
+$ bash <(curl -s https://raw.githubusercontent.com/redpeacock78/exutils/master/bin/ngram) 御旗のもとに
+御旗のもとに御
+旗のもとに御旗
+のもとに御旗の
+もとに御旗のも
+とに御旗のもと
+に御旗のもとに
+
+# If you want to use it permanently.
+# Write the following in .bashrc etc.
+exutils(){
+  if [[ "${1}" == help ]] || \
+     [[ "${@}" == version ]]; then
+    bash <(curl -s "https://raw.githubusercontent.com/redpeacock78/exutils/master/docker/bin/${1}") "${2}"
+  else
+    bash <(curl -s "https://raw.githubusercontent.com/redpeacock78/exutils/master/bin/${1}") "${@:2}"
+  fi
+}
+
+# Reload settings.
+$ source ~/.bashrc
+
+# Run!
+$ exutils prim -w 100 | exutils camb 13
+02 03 05 07 11 13 17 19 23 29 31 37 41
+03 05 07 11 13 17 19 23 29 31 37 41 43
+05 07 11 13 17 19 23 29 31 37 41 43 47
+07 11 13 17 19 23 29 31 37 41 43 47 53
+11 13 17 19 23 29 31 37 41 43 47 53 59
+13 17 19 23 29 31 37 41 43 47 53 59 61
+17 19 23 29 31 37 41 43 47 53 59 61 67
+19 23 29 31 37 41 43 47 53 59 61 67 71
+23 29 31 37 41 43 47 53 59 61 67 71 73
+29 31 37 41 43 47 53 59 61 67 71 73 79
+31 37 41 43 47 53 59 61 67 71 73 79 83
+37 41 43 47 53 59 61 67 71 73 79 83 89
+41 43 47 53 59 61 67 71 73 79 83 89 97
 ```
