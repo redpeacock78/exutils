@@ -10,13 +10,13 @@
 
 - コンセプト
 - インストール方法
-	- 依存関係
-	- MacOSでのインストール方法
-	- Linuxでのインストール方法
-	- Dockerによるインストール方法
+  - 依存関係
+  - MacOSでのインストール方法
+  - Linuxでのインストール方法
+  - Dockerによるインストール方法
 - インストールを行わずに気軽に使いたい
-	- 依存関係
-	- 方法
+  - 依存関係
+  - 方法
 
 <!-- /MarkdownTOC -->
 
@@ -151,15 +151,17 @@ $ source ~/.bashrc
 # 実行
 $ exutils help
 Commands:
-  exutils prim [OPTION] [NUMBER]      # Print prime numbers of given NUMBER.
-  exutils camb [OPTION] [NUMBER]      # Displays standard input while convolving.
-  exutils divi [OPTION] [NUMBER]      # Display divisor of given NUMBER.
-  exutils inv  [OPTION] [ARRAYS]      # Inverts the permutation of the array.
-  exutils ngram [OPTION] [STRING]     # Displays the N-gram of the passed string.
-  exutils stalin [OPTION] [ELEMENTS]  # Excutes the Stalin sort algorithm with the calculation 
-                                        amount O(n) for the passed elements.
-  exutils help [COMMAND]              # Describe available commands or one specific command.
-  exutils version                     # Show version and info
+  exutils prim [OPTION] [NUMBER]         # Print prime numbers of given NUMBER.
+  exutils camb [OPTION] [NUMBER]         # Displays standard input while convolving.
+  exutils divi [OPTION] [NUMBER]         # Display divisor of given NUMBER.
+  exutils inv  [OPTION] [ARRAYS]         # Inverts the permutation of the array.
+  exutils rpt [OPTION] [STRING] [NUMBER] # Generates the given STRING a specified NUMBER of times.
+  exutils ngram [OPTION] [STRING]        # Displays the N-gram of the passed string.
+  exutils stalin [OPTION] [ELEMENTS]     # Excutes the Stalin sort algorithm with the calculation 
+                                           amount O(n) for the passed elements.
+  exutils help [COMMAND]                 # Describe available commands or one specific command.
+  exutils version                        # Show version and info
+
 $ exutils prim -w 100 | exutils camb 13
 02 03 05 07 11 13 17 19 23 29 31 37 41
 03 05 07 11 13 17 19 23 29 31 37 41 43
