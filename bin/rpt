@@ -50,7 +50,7 @@ Usage: ${0##*/} [OPTION] [STRING] [NUMBER]
 Generates the given STRING a specified number of times.
 
 Option:
-  --del=[SEPARATOR]    Specify the delimiter (default: \n)
+  --del=[DELIMITER]   Specify the delimiter (default: \n)
   -h, --help          Show usage
   -v, --version       Show version and info
 
@@ -90,11 +90,11 @@ ERR
 
 ####MAIN_PROCESSING####
 function main(){
-  if [[ -z "${FS}" ]]; then
-    eval printf "${STRING}""%.s${FS:-\\\\n}" {1.."${NUMBER}"}
+  if [[ -z "${DELIMITER}" ]]; then
+    eval printf "${STRING}""%.s${DELIMITER:-\\\\n}" {1.."${NUMBER}"}
   else
-    eval printf "${STRING}""%.s${FS:-\\\\n}" {1.."${NUMBER}"} \
-    | awk 'sub(/'"${FS}"'$/,"",$0)'
+    eval printf "${STRING}""%.s${DELIMITER:-\\\\n}" {1.."${NUMBER}"} \
+    | awk 'sub(/'"${DELIMITER}"'$/,"",$0)'
   fi
 }
 
@@ -108,10 +108,10 @@ function option_perse(){
   elif [[ -p /dev/stdin ]]; then
     declare STRING="$(awk -v RS='\r\n' -v ORS='\n' '{print}' <(cat -))"
     if [[ "${1}" =~ --del= ]]; then
-      declare FS="${1#*=}"
+      declare DELIMITER="${1#*=}"
       if [[ "${2}" =~ ^[0-9]+$ ]]; then
         declare NUMBER="${2}"
-        main "${FS}" "${STRING}" "${NUMBER}"
+        main "${DELIMITER}" "${STRING}" "${NUMBER}"
       elif [[ ! "${2}" =~ ^[0-9]+$ ]]; then
       	error
       fi
@@ -124,11 +124,11 @@ function option_perse(){
       error
     fi
   elif [[ "${1}" =~ --del= ]]; then
-    declare FS="${1#*=}"
+    declare DELIMITER="${1#*=}"
     if [[ "${3}" =~ ^[0-9]+$ ]]; then
       declare NUMBER="${3}"
       declare STRING="${2}"
-      main "${FS}" "${STRING}" "${NUMBER}"
+      main "${DELIMITER}" "${STRING}" "${NUMBER}"
     elif [[ ! "${3}" =~ ^[0-9]+$ ]]; then
       error
     fi
