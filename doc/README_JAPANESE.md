@@ -93,6 +93,7 @@ exutils(){
   [ -t 0 ] && T="t" || T=""
   docker run -i$T --rm docker.io/redpeacock78/exutils "$@"
 }
+export -f exutils
 
 # 設定を再読み込み
 $ source ~/.bashrc
@@ -144,6 +145,7 @@ exutils(){
     bash <(curl -s "https://raw.githubusercontent.com/redpeacock78/exutils/master/bin/${1}") "${@:2}"
   fi
 }
+export -f exutils
 
 # 設定を再読み込み
 $ source ~/.bashrc
