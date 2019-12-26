@@ -47,7 +47,7 @@ function usage(){
   {
    cat << EOS
 Usage: ${0##*/} [OPTION] [STRING] [NUMBER]
-Generates the given STRING a specified number of times.
+Generates the given STRING a specified NUMBER of times.
 
 Option:
   --del=[DELIMITER]   Specify the delimiter (default: \n)
@@ -70,7 +70,7 @@ TL;DR
   🔴🔴🔴⚪️⚪️⚪️🔵🔵🔵⚪️⚪️⚪️
   🔴🔴🔴⚪️⚪️⚪️🔵🔵🔵⚪️⚪️⚪️
 
-  $ echo 響け！ユーフォニアム | ./rpt --del=, 4
+  $ echo 響け！ユーフォニアム | rpt --del=, 4
   響け！ユーフォニアム,響け！ユーフォニアム,響け！ユーフォニアム,響け！ユーフォニアム
 EOS
    exit 0
