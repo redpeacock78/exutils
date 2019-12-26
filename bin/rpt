@@ -93,7 +93,7 @@ function main(){
   if [[ -z "${FS}" ]]; then
     eval printf "${STRING}""%.s${FS:-\\\\n}" {1.."${NUMBER}"}
   else
-  	eval printf "${STRING}""%.s${FS:-\\\\n}" {1.."${NUMBER}"} \
+    eval printf "${STRING}""%.s${FS:-\\\\n}" {1.."${NUMBER}"} \
     | awk 'sub(/'"${FS}"'$/,"",$0)'
   fi
 }
@@ -133,8 +133,8 @@ function option_perse(){
       error
     fi
   else
-  	declare STRING="${1}"
-  	if [[ "${2}" =~ ^[0-9]+$ ]]; then
+    declare STRING="${1}"
+    if [[ "${2}" =~ ^[0-9]+$ ]]; then
       declare NUMBER="${2}"
       main "${STRING}" "${NUMBER}"
     elif [[ ! "${2}" =~ ^[0-9]+$ ]]; then
