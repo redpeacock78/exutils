@@ -14,15 +14,16 @@ function usage(){
   {
    cat << EOS
 Commands:
-  exutils prim [OPTION] [NUMBER]      # Print prime numbers of given NUMBER.
-  exutils camb [OPTION] [NUMBER]      # Displays standard input while convolving.
-  exutils divi [OPTION] [NUMBER]      # Display divisor of given NUMBER.
-  exutils inv  [OPTION] [ARRAYS]      # Inverts the permutation of the array.
-  exutils ngram [OPTION] [STRING]     # Displays the N-gram of the passed string.
-  exutils stalin [OPTION] [ELEMENTS]  # Excutes the Stalin sort algorithm with the calculation 
-                                        amount O(n) for the passed elements.
-  exutils help [COMMAND]              # Describe available commands or one specific command.
-  exutils version                     # Show version and info
+  exutils prim [OPTION] [NUMBER]         # Print prime numbers of given NUMBER.
+  exutils camb [OPTION] [NUMBER]         # Displays standard input while convolving.
+  exutils divi [OPTION] [NUMBER]         # Display divisor of given NUMBER.
+  exutils inv  [OPTION] [ARRAYS]         # Inverts the permutation of the array.
+  exutils rpt [OPTION] [STRING] [NUMBER] # Generates the given STRING a specified NUMBER of times.
+  exutils ngram [OPTION] [STRING]        # Displays the N-gram of the passed string.
+  exutils stalin [OPTION] [ELEMENTS]     # Excutes the Stalin sort algorithm with the calculation 
+                                           amount O(n) for the passed elements.
+  exutils help [COMMAND]                 # Describe available commands or one specific command.
+  exutils version                        # Show version and info
 EOS
   }
 }
@@ -175,6 +176,40 @@ EOS
   }
 }
 
+function rpt(){
+  {
+   cat << EOS
+Usage: ${0##*/} [OPTION] [STRING] [NUMBER]
+Generates the given STRING a specified NUMBER of times.
+
+Option:
+  --del=[DELIMITER]   Specify the delimiter (default: \n)
+  -h, --help          Show usage
+  -v, --version       Show version and info
+
+TL;DR
+  $ rpt 🔴🔴🔴⚪️⚪️⚪️🔵🔵🔵⚪️⚪️⚪️ 13
+  🔴🔴🔴⚪️⚪️⚪️🔵🔵🔵⚪️⚪️⚪️
+  🔴🔴🔴⚪️⚪️⚪️🔵🔵🔵⚪️⚪️⚪️
+  🔴🔴🔴⚪️⚪️⚪️🔵🔵🔵⚪️⚪️⚪️
+  🔴🔴🔴⚪️⚪️⚪️🔵🔵🔵⚪️⚪️⚪️
+  🔴🔴🔴⚪️⚪️⚪️🔵🔵🔵⚪️⚪️⚪️
+  🔴🔴🔴⚪️⚪️⚪️🔵🔵🔵⚪️⚪️⚪️
+  🔴🔴🔴⚪️⚪️⚪️🔵🔵🔵⚪️⚪️⚪️
+  🔴🔴🔴⚪️⚪️⚪️🔵🔵🔵⚪️⚪️⚪️
+  🔴🔴🔴⚪️⚪️⚪️🔵🔵🔵⚪️⚪️⚪️
+  🔴🔴🔴⚪️⚪️⚪️🔵🔵🔵⚪️⚪️⚪️
+  🔴🔴🔴⚪️⚪️⚪️🔵🔵🔵⚪️⚪️⚪️
+  🔴🔴🔴⚪️⚪️⚪️🔵🔵🔵⚪️⚪️⚪️
+  🔴🔴🔴⚪️⚪️⚪️🔵🔵🔵⚪️⚪️⚪️
+
+  $ echo 響け！ユーフォニアム | ./rpt --del=, 4
+  響け！ユーフォニアム,響け！ユーフォニアム,響け！ユーフォニアム,響け！ユーフォニアム
+EOS
+   exit 0
+  }
+}
+
 function perse_com(){
   if [[ -z "${1}" ]]; then
     usage
@@ -190,6 +225,8 @@ function perse_com(){
     ngram
   elif [[ "${1}" == stalin ]]; then
     stalin
+  elif [[ "${1}" == rpt ]]; then
+    rpt
   else
     error
   fi
