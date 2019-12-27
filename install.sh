@@ -67,7 +67,7 @@ PATH
 function usage(){
   {
    cat << EOS >&2
-Usage: install.sh [--docker] [--uninstall] [-h,--help]
+Usage: install.sh [--docker] [--update] [--uninstall] [-h,--help]
 EOS
   }
 }
