@@ -3,6 +3,12 @@
 </div>
 
 # これは何？
+[![GitHub License](https://img.shields.io/github/license/redpeacock78/exutils)](https://github.com/redpeacock78/exutils/blob/master/LICENSE)
+[![Document ja_JP](https://img.shields.io/badge/document-ja__JP-brightgreen)](https://github.com/redpeacock78/exutils/blob/master/doc/README_JAPANESE.md) [![Document en_US](https://img.shields.io/badge/document-en__US-brightgreen)](https://github.com/redpeacock78/exutils/blob/master/README.md)
+![GitHub code size in bytes](https://img.shields.io/github/languages/code-size/redpeacock78/exutils)  
+[![Docker Cloud Build Status](https://img.shields.io/docker/cloud/build/redpeacock78/exutils)](https://hub.docker.com/r/redpeacock78/exutils) [![Docker Pulls](https://img.shields.io/docker/pulls/redpeacock78/exutils)](https://hub.docker.com/r/redpeacock78/exutils)  
+![GitHub forks](https://img.shields.io/github/forks/redpeacock78/exutils) ![GitHub stars](https://img.shields.io/github/stars/redpeacock78/exutils)  
+[![Twitter URL](https://img.shields.io/twitter/url?style=social&url=https%3A%2F%2Ftwitter.com%2Fkazuki_199778)](https://twitter.com/intent/tweet?text=Check%20out%20Ex-Utils%20on%20Github.&url=https%3A%2F%2Fgithub.com%2Fredpeacock78%2Fexutils&hashtags=exutils%2Cbash%2Cshell_script) [![Twitter Follow](https://img.shields.io/twitter/follow/kazuki_199778?label=Follow&style=social)](https://twitter.com/kazuki_199778)  
 シェルスクリプトで作った面倒なワンライナーを纏めたコマンドセットです。
 
 ## 目次
