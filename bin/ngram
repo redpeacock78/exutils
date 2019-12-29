@@ -115,7 +115,8 @@ function option_perse(){
   elif [[ -z "${@}" ]]; then
   	error
   else
-  	main "$(awk -v RS='\r' -v ORS='\n' '{print}' <<< ${@})"
+    declare STRING="$(awk -v RS='\r\n' -v ORS='\n' '{print}' <<< ${@})"
+  	main "${STRING}"
   fi
 }
 
